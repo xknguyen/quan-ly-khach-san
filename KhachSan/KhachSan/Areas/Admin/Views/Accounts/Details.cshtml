@@ -1,0 +1,146 @@
+﻿@model Model.MetaData.Account
+
+@{
+    ViewBag.Title = "Chi Tiết Tài Khoản";
+    Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+}
+
+<div class="modal fade" id="detailModal" style="display: block !important;">
+    <div class="modal-dialog modal-lg" style="overflow-y: initial !important;overflow-y: scroll; max-height:85%;  margin-top: 50px; margin-bottom:50px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Xem chi tiết tài khoản @Model.accountName</h4>
+            </div>
+            <div class="modal-body" style="height: 400px;overflow-y: auto;">
+                <div class="col-md-7">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.accountName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.accountName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.password)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.password)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.fullName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.fullName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.imagePath)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.imagePath)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.birthDay)
+                        </dt>
+
+                        <dd>
+                            @string.Format("{0:dd/MM/yyyy}", Model.birthDay)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.phone)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.phone)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.email)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.email)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.address)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.address)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.createDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.createDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.lastLogin)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.lastLogin)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.accountGroupID)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.accountGroupID)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.active)
+                        </dt>
+
+
+                        @{
+                            string a = "Khóa";
+                            if (Model.active == true)
+                            {
+                                <dd style="color: green">
+                                    @(a = "Kích Hoạt")
+                                </dd>
+                            }
+                            else
+                            {
+                                <dd style="color: red">@a</dd>
+                            }
+                        }
+                        @*@Html.DisplayFor(model => model.active)*@
+
+
+                    </dl>
+                </div>
+                <div class="col-md-5">
+                    @*<img alt="" src="@Model.Avatar" width="200" height="245" class="img-responsive" />*@
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-actions no-color text-center">
+                    <a href="@Url.Action("Edit", new { @id = Model.ID })" title="Sửa tài khoản @Model.accountName" class="edit-link"><button class="btn btn-warning">Chỉnh sửa</button></a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
