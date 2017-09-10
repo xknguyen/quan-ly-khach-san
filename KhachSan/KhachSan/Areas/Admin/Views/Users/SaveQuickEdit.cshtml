@@ -1,0 +1,14 @@
+﻿@model KhachSan.Models.Account
+@{
+    ViewBag.Title = "SaveQuickEdit";
+    //Layout = //"~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+    Layout = null;
+}
+@if (Model != null)
+{
+    return JSON(Model);
+}
+else
+{
+    Response.Write("Co loi");
+}
