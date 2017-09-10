@@ -1,0 +1,535 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: initial;
+    box-sizing: border-box;
+}
+/*head*/
+.navbar-header
+{
+    margin-left: 100px;
+    border-right: 1px solid #e1e1e1;
+    padding: 20px 70px 20px 0;
+    
+}
+.nav
+{
+    height: auto;
+    
+}
+.nav li a
+{
+    padding-top: 30px;
+    font-size: 16px;
+}
+.nav li a:hover
+{
+    color: #00cccc;
+    background: white;
+}
+.navbar-default .navbar-nav>li>a:hover
+{
+    color: #00cccc;
+    background: white;
+}
+.nav li
+{
+    padding:5px 20px 0 30px;
+}
+.navbar-default .navbar-nav>.open>a:focus,.navbar-default .navbar-nav>.open>a:hover{
+    background-color: white;
+}
+.navbar-default .navbar-nav>.open>a{
+    background: white;
+}
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 15px;
+    padding-top: 0;
+}
+.navbar-nav>li>.dropdown-menu li {
+    padding-top: 0;
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 10px;
+}
+.navbar-nav>li>.dropdown-menu a:hover
+{
+    color: #00cccc;
+    background: white;
+}
+.navbar-nav>li>.dropdown-menu li:last-child {
+    padding-top: 0;
+    
+    border-bottom: none;
+}
+.navbar-brand
+{
+    width: 400px;
+    height: 100px;
+    float: left;
+    border-right: 1px solid #cccccc;
+}
+.navbar-brand img
+{
+   height: 100px;
+}
+.menu ul{
+    list-style-type: none;
+}
+.menu li
+{
+    
+    float: left;
+    line-height: 100px;
+    position: relative;
+}
+.menu a{
+    color: gray;
+    font-weight: bold;
+    text-decoration: none;
+    padding-left: 50px;
+    display: block;
+}
+.menu a:hover
+{
+    color: #00cccc;
+}
+.menu li .sub-menu
+{
+    position: absolute;
+    display: none;
+}
+.menu li:hover .sub-menu
+{
+    display: block;
+    z-index: 2
+}
+.menu li .sub-menu li{
+    width: 200px;
+    line-height: 50px;
+    border-bottom: 1px solid #cccccc;
+    background-color: white;
+}
+.clearfix:after{
+    clear: both;
+    content: ".";
+    display: block;
+    width: 0px;
+    height: 0px;
+}
+/*bìa*/
+.parallax-effect
+{
+    overflow: hidden;
+    outline: none;
+    background: #fff;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    width: 100%;
+    position: relative;
+    line-height: 1.42857143 !important;
+    border-color: #75c5cf;
+}
+#parallax-pagetitle
+{
+    background-image:url("Hinh/parallax-01.jpg");
+    background-position: 50% -76px;
+    height: 140px;
+    line-height: 1.42857143 !important;
+    color: white;
+}
+.color-overlay
+{
+    position: relative;
+    height: 100%;
+    background: rgba(117,197,207,0.8);
+    
+}
+.container
+{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.breadcrumb
+{
+    padding: 0;
+    margin: 30px 0 20px 0;
+    list-style: none;
+}
+.breadcrumb  li{
+    float: left;
+    margin-right: 20px;
+    
+}
+
+.breadcrumb li +li:before{
+    
+    content: "/\00a0";
+}
+.breadcrumb a
+{
+    color: white;
+}
+.container h1
+{
+    padding-top: 30px;
+    font-size: 40px;
+}
+/*footer*/
+.footer
+{
+    background-color: #5e5e5e;
+    color: #c1c1c1;
+    margin-top: 20px;
+    display: block;
+    height: auto;
+    position: relative;
+    float: left;
+}
+.footer h4
+{
+    margin-bottom: 20px;
+}
+/*calendar*/
+.calendar-month
+{
+    float: left;
+    margin: 30px 20px 0px 20px;
+}
+
+.monthPre{
+ color: gray;
+ text-align: center;
+}
+.monthNow{
+ color: #c1c1c1;
+ text-align: center;
+}
+.dayNow{
+ border: 2px solid black;
+ color: #c1c1c1;
+ text-align: center;
+}
+.calendar td{
+ htmlContent: 2px;
+ width: 40px;
+}
+.monthNow th{
+ color: #c1c1c1;
+ text-align: center;
+}
+.dayNames{
+ color: #c1c1c1;
+ text-align: center;
+}
+/*blog footer*/
+.content-footer
+{
+    float: left;
+    width: 20%;
+    margin: 30px 20px 0px 100px;
+}
+
+.content-footer p
+{
+    text-align: justify;
+}
+
+
+.blog-footer
+{
+    float: left;
+    display: block;
+    width: 20%;
+    margin: 30px 20px 0px 20px;
+}
+.blog-footer a
+{
+    text-decoration: none;
+    color: #c1c1c1;
+}
+.blog-footer ul
+{
+    list-style-type: none;
+}
+.blog-footer li
+{
+    list-style-type: none;
+}
+
+.new-thumb
+{
+    margin: 10px 10px 10px 0px;
+    float: left;
+}
+
+.list-blog li{
+    border-bottom: 2px solid #efefef;
+}
+.list-blog li:last-child
+{
+    border-bottom: none;
+}
+.new-thumb img
+{
+    width: 75px;
+    height: 75px;
+    border: 3px solid #ccc;
+    
+}
+.new-content
+{
+    padding-top: 20px;
+    margin-left: 20px;
+}
+/*address*/
+.address
+{
+    float: left;
+    margin: 30px 20px 0px 20px;
+}
+/*add-contact*/
+.address-contact {
+    margin-left: 20px;
+    
+}
+.add
+{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.title
+{
+    background-color: rgba(90,186,198,0.03);
+    border-bottom: 1px solid #ccc;
+    height: 40px;
+    padding: 10px 0 10px 0;
+}
+.address-contact h2
+{
+    text-align: center;
+    color: #5e5e5e;
+    font-weight: bold;
+    font-size: 24px;
+    overflow: hidden;
+    margin-bottom: 50px;
+    
+}
+h2.line:before,h2.line:after
+{
+    display:inline-block;
+    width:32%;
+    height:1px;
+    border-top: 2px solid #ccc;
+    content: "";
+    vertical-align: middle;
+}
+
+h2:before {
+ right: 0.5em;
+ margin-left: -50%;
+}
+h2:after {
+ left: 0.5em;
+ margin-right: -50%;
+}
+h2 span
+{
+    padding: 0px 20px 0px 20px;
+}
+
+.map
+{
+    overflow:hidden;
+    height:350px;
+    width:350px;
+}
+.address-contact
+{
+    float: left;
+    width: 30%;
+}
+.message
+{
+    float: right;
+    width: 40%;
+    
+}
+.form-contact
+{
+    margin-left: -230px
+}
+input[type=text],select
+{
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+label
+{
+    font-weight: bold;
+    color: gray;
+}
+input[type=submit]
+{
+    background-color: #35929e;
+    color: white;
+    height: 30px;
+    border: 1px solid #00cccc;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 0px 30px 0px 30px;
+}
+.messaget h2
+{
+    text-align: center;
+    color: #5e5e5e;
+    font-weight: bold;
+    font-size: 24px;
+    overflow: hidden;
+    margin-bottom: 50px;
+    text-align: center;
+    
+}
+.message h2.line:before,.message h2.line:after
+{
+    display:inline-block;
+    width:35%;
+    height:1px;
+    border-top: 2px solid #ccc;
+    content: "";
+    vertical-align: middle;
+}
+@media only screen and (max-width:850px)
+{
+    .menu li
+    {
+        float: none;
+    }
+    .sub-menu
+    {
+        display: block;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .collapse.in {
+        display: block !important;
+    }
+    .navbar-nav li
+    {
+        border-bottom: 1px solid #e1e1e1;
+    }
+    .navbar-nav li a
+    {
+        padding: 10px;
+    }
+    .navbar-nav li:last-child
+    {
+        border-bottom: none;
+    }
+    .navbar-nav>li>.dropdown-menu li {
+        padding-top: 0;
+        padding-bottom: 10px;
+        border-top: 1px solid #e1e1e1;
+    }
+    .navbar-nav>li>.dropdown-menu li:last-child {
+        border-top:none;
+    }
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: #cccccc;
+    }
+}
+
+@media only screen and (max-width: 1200px)
+{
+    .address-contact
+    {
+        margin-left: 0;
+    }
+    .map
+    {
+        width:300px;
+    }
+}
+
+@media only screen and (max-width: 1100px)
+{
+    .content-footer, .blog-footer
+    {
+        width: 10%;
+    }
+}
+@media only screen and (max-width: 1024px)
+{
+    .address-contact
+    {
+        width: 25%;
+    }
+    .message
+    {
+        width: 30%;
+    }
+    .map
+    {
+        width: 250px;
+        height: 250px;
+    }
+}
+@media only screen and (max-width:800px)
+{
+    .menu li
+    {
+        float: none;
+    }
+    .sub-menu
+    {
+        display: block;
+    }
+    .blog-footer, .calendar-month, .content-footer,.address
+    {
+        float: none;
+        width: 90%;
+    }
+    .content-footer
+    {
+        margin-left: 30px;
+    }
+    *
+    {
+        font-size: 16px;
+    }
+    
+    .address-contact
+    {
+        float: none;
+        width: 90%;
+        margin-left: 20px;
+    }
+    .map
+    {
+        height: 350px;
+        width: 100%;
+    }
+    .message
+    {
+        float: none;
+        width: 90%;
+    }
+    .content-footer, .blog-footer
+    {
+        width: 100%;
+    }
+    .form-contact
+    {
+        margin-left: 20px;
+    }
+    .message h2
+    {
+        margin-left: 230px;
+    }
+}

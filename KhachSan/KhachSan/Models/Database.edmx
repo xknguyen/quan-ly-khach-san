@@ -1,0 +1,706 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KhachSanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="About">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="200" />
+          <Property Name="content" Type="nvarchar" MaxLength="4000" />
+          <Property Name="active" Type="int" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accountName" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="displayname" Type="nvarchar" MaxLength="50" />
+          <Property Name="created" Type="date" />
+          <Property Name="modified" Type="date" />
+          <Property Name="phone" Type="text" />
+          <Property Name="address" Type="nvarchar" MaxLength="200" />
+          <Property Name="avatar" Type="ntext" />
+          <Property Name="isadmin" Type="bit" Nullable="false" />
+          <Property Name="lastLogin" Type="datetime" />
+          <Property Name="accountGroupID" Type="int" />
+          <Property Name="IPLast" Type="varchar" MaxLength="50" />
+          <Property Name="IPCreated" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AccountGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="groupPathID" Type="int" />
+          <Property Name="accountID" Type="int" />
+          <Property Name="active" Type="int" />
+          <Property Name="description" Type="text" />
+        </EntityType>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="title" Type="text" />
+          <Property Name="content" Type="text" />
+          <Property Name="active" Type="int" />
+          <Property Name="accountID" Type="int" />
+          <Property Name="shortDescription" Type="text" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="custumerID" Type="int" />
+          <Property Name="bookingDate" Type="datetime" />
+          <Property Name="bookingStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="BookingDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="bookingID" Type="int" />
+          <Property Name="roomID" Type="int" />
+          <Property Name="detailQuantity" Type="int" />
+          <Property Name="detailPrice" Type="float" />
+          <Property Name="detailTotal" Type="int" />
+          <Property Name="bookingStart" Type="datetime" />
+          <Property Name="bookingEnd" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="text" />
+          <Property Name="description" Type="text" />
+          <Property Name="image" Type="text" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="fullName" Type="text" />
+          <Property Name="address" Type="text" />
+          <Property Name="phone" Type="text" />
+          <Property Name="email" Type="text" />
+        </EntityType>
+        <EntityType Name="GroupPath">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="accountGroupID" Type="int" />
+          <Property Name="pathID" Type="int" />
+        </EntityType>
+        <EntityType Name="MultiTemplate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Paths">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="pathName" Type="text" />
+          <Property Name="pathDescription" Type="text" />
+          <Property Name="pathUrl" Type="text" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roomName" Type="nvarchar" MaxLength="100" />
+          <Property Name="roomDescription" Type="nvarchar" MaxLength="4000" />
+          <Property Name="roomPrice" Type="float" />
+          <Property Name="categoryID" Type="int" />
+          <Property Name="roomQuantily" Type="int" />
+        </EntityType>
+        <EntityType Name="Slider">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="image_Name" Type="text" />
+          <Property Name="image_Description" Type="text" />
+          <Property Name="image_Path" Type="varchar" MaxLength="200" />
+          <Property Name="active1" Type="int" />
+        </EntityType>
+        <Association Name="FK_Booking_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="custumerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetail_Booking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="BookingDetail" Type="Self.BookingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingDetail">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetail_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="BookingDetail" Type="Self.BookingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingDetail">
+              <PropertyRef Name="roomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupPath_AccountGroup">
+          <End Role="AccountGroup" Type="Self.AccountGroup" Multiplicity="0..1" />
+          <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupPath">
+              <PropertyRef Name="accountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupPath_Path">
+          <End Role="Paths" Type="Self.Paths" Multiplicity="0..1" />
+          <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paths">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupPath">
+              <PropertyRef Name="accountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KhachSanModelStoreContainer">
+          <EntitySet Name="About" EntityType="Self.About" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountGroup" EntityType="Self.AccountGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingDetail" EntityType="Self.BookingDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupPath" EntityType="Self.GroupPath" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MultiTemplate" EntityType="Self.MultiTemplate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paths" EntityType="Self.Paths" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Slider" EntityType="Self.Slider" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Booking_Customer" Association="Self.FK_Booking_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetail_Booking" Association="Self.FK_BookingDetail_Booking">
+            <End Role="Booking" EntitySet="Booking" />
+            <End Role="BookingDetail" EntitySet="BookingDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetail_Room" Association="Self.FK_BookingDetail_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="BookingDetail" EntitySet="BookingDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupPath_AccountGroup" Association="Self.FK_GroupPath_AccountGroup">
+            <End Role="AccountGroup" EntitySet="AccountGroup" />
+            <End Role="GroupPath" EntitySet="GroupPath" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupPath_Path" Association="Self.FK_GroupPath_Path">
+            <End Role="Paths" EntitySet="Paths" />
+            <End Role="GroupPath" EntitySet="GroupPath" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Category" Association="Self.FK_Room_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KhachSanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="About">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="displayname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created" Type="DateTime" Precision="0" />
+          <Property Name="modified" Type="DateTime" Precision="0" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isadmin" Type="Boolean" Nullable="false" />
+          <Property Name="lastLogin" Type="DateTime" Precision="3" />
+          <Property Name="accountGroupID" Type="Int32" />
+          <Property Name="IPLast" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IPCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AccountGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="groupPathID" Type="Int32" />
+          <Property Name="accountID" Type="Int32" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GroupPaths" Relationship="Self.FK_GroupPath_AccountGroup" FromRole="AccountGroup" ToRole="GroupPath" />
+        </EntityType>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="accountID" Type="Int32" />
+          <Property Name="shortDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="custumerID" Type="Int32" />
+          <Property Name="bookingDate" Type="DateTime" Precision="3" />
+          <Property Name="bookingStatus" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Booking_Customer" FromRole="Booking" ToRole="Customer" />
+          <NavigationProperty Name="BookingDetails" Relationship="Self.FK_BookingDetail_Booking" FromRole="Booking" ToRole="BookingDetail" />
+        </EntityType>
+        <EntityType Name="BookingDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="bookingID" Type="Int32" />
+          <Property Name="roomID" Type="Int32" />
+          <Property Name="detailQuantity" Type="Int32" />
+          <Property Name="detailPrice" Type="Double" />
+          <Property Name="detailTotal" Type="Int32" />
+          <Property Name="bookingStart" Type="DateTime" Precision="3" />
+          <Property Name="bookingEnd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Booking" Relationship="Self.FK_BookingDetail_Booking" FromRole="BookingDetail" ToRole="Booking" />
+          <NavigationProperty Name="Room" Relationship="Self.FK_BookingDetail_Room" FromRole="BookingDetail" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rooms" Relationship="Self.FK_Room_Category" FromRole="Category" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="fullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_Customer" FromRole="Customer" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="GroupPath">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="accountGroupID" Type="Int32" />
+          <Property Name="pathID" Type="Int32" />
+          <NavigationProperty Name="AccountGroup" Relationship="Self.FK_GroupPath_AccountGroup" FromRole="GroupPath" ToRole="AccountGroup" />
+          <NavigationProperty Name="Path" Relationship="Self.FK_GroupPath_Path" FromRole="GroupPath" ToRole="Paths" />
+        </EntityType>
+        <EntityType Name="MultiTemplate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Paths">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="pathName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="pathDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="pathUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="GroupPaths" Relationship="Self.FK_GroupPath_Path" FromRole="Paths" ToRole="GroupPath" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roomName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="roomDescription" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="roomPrice" Type="Double" />
+          <Property Name="categoryID" Type="Int32" />
+          <Property Name="roomQuantily" Type="Int32" />
+          <NavigationProperty Name="BookingDetails" Relationship="Self.FK_BookingDetail_Room" FromRole="Room" ToRole="BookingDetail" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Room_Category" FromRole="Room" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Slider">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="image_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="image_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="image_Path" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="active1" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_GroupPath_AccountGroup">
+          <End Role="AccountGroup" Type="Self.AccountGroup" Multiplicity="0..1" />
+          <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupPath">
+              <PropertyRef Name="accountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booking_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="custumerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetail_Booking">
+          <End Role="Booking" Type="Self.Booking" Multiplicity="0..1" />
+          <End Role="BookingDetail" Type="Self.BookingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Booking">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingDetail">
+              <PropertyRef Name="bookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetail_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="BookingDetail" Type="Self.BookingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingDetail">
+              <PropertyRef Name="roomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupPath_Path">
+          <End Role="Paths" Type="KhachSanModel.Paths" Multiplicity="0..1" />
+          <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paths">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupPath">
+              <PropertyRef Name="accountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KhachSanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Abouts" EntityType="Self.About" />
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="AccountGroups" EntityType="Self.AccountGroup" />
+          <EntitySet Name="Blogs" EntityType="Self.Blog" />
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="BookingDetails" EntityType="Self.BookingDetail" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="GroupPaths" EntityType="Self.GroupPath" />
+          <EntitySet Name="MultiTemplates" EntityType="Self.MultiTemplate" />
+          <EntitySet Name="Paths1" EntityType="KhachSanModel.Paths" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="Sliders" EntityType="Self.Slider" />
+          <AssociationSet Name="FK_GroupPath_AccountGroup" Association="Self.FK_GroupPath_AccountGroup">
+            <End Role="AccountGroup" EntitySet="AccountGroups" />
+            <End Role="GroupPath" EntitySet="GroupPaths" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Booking_Customer" Association="Self.FK_Booking_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetail_Booking" Association="Self.FK_BookingDetail_Booking">
+            <End Role="Booking" EntitySet="Bookings" />
+            <End Role="BookingDetail" EntitySet="BookingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetail_Room" Association="Self.FK_BookingDetail_Room">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="BookingDetail" EntitySet="BookingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Category" Association="Self.FK_Room_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupPath_Path" Association="Self.FK_GroupPath_Path">
+            <End Role="Paths" EntitySet="Paths1" />
+            <End Role="GroupPath" EntitySet="GroupPaths" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KhachSanModelStoreContainer" CdmEntityContainer="KhachSanEntities">
+          <EntitySetMapping Name="Abouts">
+            <EntityTypeMapping TypeName="KhachSanModel.About">
+              <MappingFragment StoreEntitySet="About">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="KhachSanModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="accountName" ColumnName="accountName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="displayname" ColumnName="displayname" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="isadmin" ColumnName="isadmin" />
+                <ScalarProperty Name="lastLogin" ColumnName="lastLogin" />
+                <ScalarProperty Name="accountGroupID" ColumnName="accountGroupID" />
+                <ScalarProperty Name="IPLast" ColumnName="IPLast" />
+                <ScalarProperty Name="IPCreated" ColumnName="IPCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountGroups">
+            <EntityTypeMapping TypeName="KhachSanModel.AccountGroup">
+              <MappingFragment StoreEntitySet="AccountGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="groupPathID" ColumnName="groupPathID" />
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="KhachSanModel.Blog">
+              <MappingFragment StoreEntitySet="Blog">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="shortDescription" ColumnName="shortDescription" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="KhachSanModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="custumerID" ColumnName="custumerID" />
+                <ScalarProperty Name="bookingDate" ColumnName="bookingDate" />
+                <ScalarProperty Name="bookingStatus" ColumnName="bookingStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingDetails">
+            <EntityTypeMapping TypeName="KhachSanModel.BookingDetail">
+              <MappingFragment StoreEntitySet="BookingDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+                <ScalarProperty Name="roomID" ColumnName="roomID" />
+                <ScalarProperty Name="detailQuantity" ColumnName="detailQuantity" />
+                <ScalarProperty Name="detailPrice" ColumnName="detailPrice" />
+                <ScalarProperty Name="detailTotal" ColumnName="detailTotal" />
+                <ScalarProperty Name="bookingStart" ColumnName="bookingStart" />
+                <ScalarProperty Name="bookingEnd" ColumnName="bookingEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="KhachSanModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="KhachSanModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupPaths">
+            <EntityTypeMapping TypeName="KhachSanModel.GroupPath">
+              <MappingFragment StoreEntitySet="GroupPath">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="accountGroupID" ColumnName="accountGroupID" />
+                <ScalarProperty Name="pathID" ColumnName="pathID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MultiTemplates">
+            <EntityTypeMapping TypeName="KhachSanModel.MultiTemplate">
+              <MappingFragment StoreEntitySet="MultiTemplate">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paths1">
+            <EntityTypeMapping TypeName="KhachSanModel.Paths">
+              <MappingFragment StoreEntitySet="Paths">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="pathName" ColumnName="pathName" />
+                <ScalarProperty Name="pathDescription" ColumnName="pathDescription" />
+                <ScalarProperty Name="pathUrl" ColumnName="pathUrl" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="KhachSanModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="roomName" ColumnName="roomName" />
+                <ScalarProperty Name="roomDescription" ColumnName="roomDescription" />
+                <ScalarProperty Name="roomPrice" ColumnName="roomPrice" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+                <ScalarProperty Name="roomQuantily" ColumnName="roomQuantily" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sliders">
+            <EntityTypeMapping TypeName="KhachSanModel.Slider">
+              <MappingFragment StoreEntitySet="Slider">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="image_Name" ColumnName="image_Name" />
+                <ScalarProperty Name="image_Description" ColumnName="image_Description" />
+                <ScalarProperty Name="image_Path" ColumnName="image_Path" />
+                <ScalarProperty Name="active1" ColumnName="active1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

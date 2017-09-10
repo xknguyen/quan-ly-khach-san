@@ -1,0 +1,39 @@
+﻿@model KhachSan.Models.Room
+@{
+    ViewBag.Title = "Sửa Nhanh Phòng";
+    Layout = null;
+}
+
+@using (Html.BeginForm("QuickEdit", "Rooms", FormMethod.Post, new { id = "frmEdit" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.roomName, new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.roomName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.roomName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.roomPrice, new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.roomPrice, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.roomPrice)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.roomQuantily, new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.roomQuantily, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.roomQuantily)
+            </div>
+        </div>
+    </div>
+}
+
