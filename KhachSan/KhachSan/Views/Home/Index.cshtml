@@ -1,0 +1,278 @@
+﻿@using System.Activities.Statements
+
+@{
+    ViewBag.Title = "Khách Sạn DaLat Place";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var slide = ViewBag.Slide;
+}
+
+@section Slide{
+    @* Hiển thị Slider trang chủ *@
+    <div class="slider">
+        @foreach (var item in slide)
+        {
+            <img class="slide" src="@item.image_Path">
+      
+        }
+    
+    <button class="btn" onclick=" plusDivs(-1) " id="btn1">&#10094;</button>
+    <button class="btn" onclick=" plusDivs(1) " id="btn2">&#10095;</button>
+</div>
+    }
+
+<!--Đặt phòng-->
+<div class="booking">
+
+    <div class="email">
+        <form>
+            <label>E-mail</label><br>
+            <input type="text" name="email" placeholder="Please enter your E-mail">
+        </form>
+    </div>
+    <div class="phone">
+        <form>
+            <label>Phone</label><br>
+            <input type="text" name="phone" placeholder="Your phone number">
+        </form>
+    </div>
+    <div class="Type">
+        <form>
+            <label>Type</label><br>
+            <select name="Type">
+                <option>Select a room</option>
+                <option>Double Bedroom</option>
+                <option>King Size Bedroom</option>
+                <option>Single Room</option>
+            </select>
+        </form>
+    </div>
+    <div class="check-in">
+        <label>Check-in</label><br>
+        <input type="text" name="check-in" placeholder="Check-in" class="datepicker">
+    </div>
+    <div class="check-out">
+        <label>Check-out</label><br>
+        <input type="text" name="check-out" placeholder="check-out" class="datepicker">
+    </div>
+    <div class="guests">
+        <label>Guests</label><br>
+        <input type="text" name="guest">
+    </div>
+    <div class="book-now">
+        <input type="submit" value="Book now">
+    </div>
+</div>
+<div class="clearfix"></div>
+<!--Giới thiệu phòng-->
+<div class="content">
+    <h2 class="line"><span>Rooms Introduction</span></h2>
+    <div class="room">
+        <div class="room-list">
+            <div class="col-room">
+                <div class="room-thumb">
+                    <img src="~/Scripts/CssFrontEnd/Hinh/room-01.jpg" alt="room">
+                    <div class="mask">
+                        <div class="room-name">
+                            <h4>Honeymoon Suite</h4>
+                            <div class="price">
+                                $ 79<br>
+                                <span>a night</span>
+                            </div>
+                        </div>
+                        <div class="inf">
+                            <p>
+                                <span>A modern hotel room in Star Hotel</span><br>
+                                Nunc tempor erat in magna pulvinar fermentum. Pellentesque scelerisque at leo nec vestibulum. malesuada metus."
+                            </p>
+                            <div class="row">
+                                <div class="col">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Incl. breakfast
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Private banlcony
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Sea view
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Free Wifi
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Incl. breakfast
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Bathroom
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div><br>
+                                <a href="Room-detail.html" class="btn-booking">BOOK NOW</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="room-thumb">
+                    <img src="~/Scripts/CssFrontEnd/Hinh/room-05.jpg" alt="room">
+                    <div class="mask">
+                        <div class="room-name">
+                            <h4>Honeymoon Suite</h4>
+                            <div class="price">
+                                $ 79<br>
+                                <span>a night</span>
+                            </div>
+                        </div>
+                        <div class="inf">
+                            <p>
+                                <span>A modern hotel room in Star Hotel</span><br>
+                                Nunc tempor erat in magna pulvinar fermentum. Pellentesque scelerisque at leo nec vestibulum. malesuada metus.
+                            </p>
+                            <div class="row">
+                                <div class="col">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Incl. breakfast
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Private banlcony
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Sea view
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Free Wifi
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Incl. breakfast
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Bathroom
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div><br>
+                                <a href="Room-detail.html" class="btn-booking">BOOK NOW</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="room-thumb">
+                    <img src="~/Scripts/CssFrontEnd/Hinh/room-07.jpg" alt="room">
+                    <div class="mask">
+                        <div class="room-name">
+                            <h4>Honeymoon Suite</h4>
+                            <div class="price">
+                                $ 79<br>
+                                <span>a night</span>
+                            </div>
+                        </div>
+                        <div class="inf">
+                            <p>
+                                <span>A modern hotel room in Star Hotel</span><br>
+                                Nunc tempor erat in magna pulvinar fermentum. Pellentesque scelerisque at leo nec vestibulum. malesuada metus.
+                            </p>
+                            <div class="row">
+                                <div class="col">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Incl. breakfast
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Private banlcony
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Sea view
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Free Wifi
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Incl. breakfast
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-check-circle"></i>
+                                            Bathroom
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div><br>
+                                <a href="Room-detail.html" class="btn-booking">BOOK NOW</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Giới thiệu khách sạn-->
+<div class="hotel">
+
+    <h2 class="line"><span>Hotel Introdution</span></h2>
+    <h3>CHÀO MỪNG QUÝ KHÁCH!</h3>
+    <p>
+        Đà Lạt, Việt Nam, là điểm đến vùng núi tuyệt hảo của Đông Nam Á và đã được dành riêng để trở thành thủ phủ củaChính quyền Đông Dương thuộc Pháp trong những năm 1920. Cao nguyên Lang Bian từng nổi tiếng là một điểm đến săn bắn tuyệt vời trong những ngày đầu và từ đó đã phát triển thành một địa điểm tận hưởng dịch vụ đánh gôn có một không hai.<br>
+        Tọa lạc ngay trung tâm thành phố Đà Lạt nhìn xuống Hồ Xuân Hương, ba cơ sở của chúng tôi bao gồm một khách sạn 5 sao là Dalat Palace Heritage Hotel (trước đây là Sofitel Dalat Palace), một khách sạn 4 sao là Du Parc Hotel Dalat (trước đây là Novotel Dalat) và sân gôn Dalat Golf Club
+    </p>
+</div>
+<div class="hotel-inf">
+    <div class="hotel-List">
+        <div class="palace">
+            <h3>KHÁCH SẠN DALAT PALACE HERITAGE</h3>
+            <img src="~/Scripts/CssFrontEnd/Hinh/palace_logo_200.png">
+            <p>Chào mừng quý khách đến với khách sạn DALAT PALACE HERITAGE HOTEL (trước đây là SOFITEL DALAT PALACE).</p>
+            <p>Được xây dựng từ năm 1922 của thế kỷ trước, khách sạn Dalat Palace thể hiện đẳng cấp thanh lịch sang trọng với dịch vụ hoàn hảo và vẻ duyên dáng thời thuộc địa Pháp.</p>
+            <p>
+                <a href="#">Read me</a>
+            </p>
+        </div>
+        <div class="palace">
+            <h3>KHÁCH SẠN DU PARC DALAT</h3>
+            <img src="~/Scripts/CssFrontEnd/Hinh/duparc_logo_200.png">
+            <p>Thư giãn tại khách sạn DU PARC DALAT (trước đây là NOVOTEL DALAT), biểu tượng của sự sang trọng nằm tại địa điểm sầm uất gần trung tâm thành phố, khách sạn mang lại sự trãi nghiêm tinh túy của nền văn hóa phong phú và đa dạng của Việt Nam.</p>
+            <p>Thư giãn tại khách sạn DU PARC DALAT (trước đây là NOVOTEL DALAT)...</p>
+            <p>
+                <a href="#">Read me</a>
+            </p>
+        </div>
+        <div class="palace">
+            <h3>SÂN GOLF DALAT</h3>
+            <img src="~/Scripts/CssFrontEnd/Hinh/golf_logo_200.png">
+            <p>Dalat Palace Golf Club là sân golf được đánh giá cao và là nơi thu hút một số lượng lớn những người đam mê chơi golf quốc tế. Với độ dài 7,009 yard, sân gôn gồm một chuỗi liên tục các lỗ gôn đầy sáng tạo và đòi hỏi nhiều cố gắng.</p>
+            <p>Sân gôn được trùng tu với chi phí hàng triệu đô la vào năm 1994, và tái mở cửa trong sự trông chờ...</p>
+            <p>
+                <a href="#">Read me</a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+﻿@model KhachSan.Models.Room
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Room</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.roomName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roomName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.roomDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roomDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.roomPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roomPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.roomQuantily)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roomQuantily)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,97 @@
+﻿@model KhachSan.Models.Account
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+}
+
+@{
+    WebImage photo = null;
+    var newFileName = "";
+    var imagePath = "";
+    if (IsPost)
+    {
+        photo = WebImage.GetImageFromRequest();
+        if (photo != null)
+        {
+            newFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(photo.FileName);
+            imagePath = @"images\" + newFileName;
+            photo.Save(@"~\" + imagePath);
+        }
+    }
+}
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Sửa người dùng</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.accountName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.accountName)
+                @Html.ValidationMessageFor(model => model.accountName)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email)
+                @Html.ValidationMessageFor(model => model.email)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.displayname, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.displayname)
+                @Html.ValidationMessageFor(model => model.displayname)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.avatar, new { @class = "control-label col-md-2" })
+            <fieldset>
+                <div class="col-md-10">
+                    @Html.TextBox("file", "", new { type = "file", id = "uploadFile" })<br />
+                    <img width="100" height="100" id="imgshow" src="@Url.Content("~/Content/images/avatar/"+ Model.avatar)" />
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-warning" />
+                @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-default" })
+            </div>
+
+        </div>
+    </div>
+
+}
+<div>
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgshow').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#uploadFile").change(function () {
+            readURL(this);
+        });
+    </script>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

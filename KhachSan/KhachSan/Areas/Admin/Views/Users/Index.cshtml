@@ -1,0 +1,297 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<KhachSan.Models.Account>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Danh Sách Nhân Viên";
+    Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+}
+<div class="form-group form-inline"  style="padding:20px 0 40px 0" >
+    @Html.ActionLink("Thêm người dùng", "Create", null, new { @class = "btn btn-primary pull-left" })
+    <form class="form-inline pull-right" style="margin-right:40px;">
+        @{var num = new[] { 5, 10, 20, 100 };
+        }
+        @if (ViewBag.SumUsers > 5)
+            {
+            <label for="numDisplay">Hiển thị: &nbsp;</label>
+            <div class="form-group">
+                <select class="form-control " name="numDisplay" id="numDisplay" onchange="this.form.submit()">
+                    @for (int i = 0; i < num.Count(); i++)
+                    {
+                        if (num[i] >= ViewBag.SumUsers)
+                        {
+                            <option value="0" selected="@(ViewBag.NumDisplay==0)">Tất cả</option>
+                            break;
+                        }
+                        <option value="@num[i]" selected="@(ViewBag.NumDisplay==num[i])">@num[i]</option>
+                    }
+                </select>
+            </div>
+        }
+        <label for="txtSearch">Tìm kiếm: </label>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Tìm kiếm người dùng..." name="q" value="@ViewBag.SearchName" id="search-box">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </form>
+</div>
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.ActionLink("UserName", "Index", new {sort = ViewBag.NameSort, q = ViewBag.SearchName})
+        </th>
+        <th>
+            @Html.ActionLink("Email", "Index", new {sort = ViewBag.EmailSort, q = ViewBag.SearchName})
+        </th>
+        <th>
+            @Html.ActionLink("DisplayName", "Index", new {sort = ViewBag.DisplaySort, q = ViewBag.SearchName})
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SingleOrDefault().avatar)
+        </th>
+        <th></th>
+    </tr>
+    @* Hiển thị record *@
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.accountName, "Edit", new {id = item.ID})
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.displayname)
+            </td>
+            <td>
+                <img width="100" height="100" src="@Url.Content("~/Content/images/avatar/" + item.avatar)"/>
+            </td>
+            <td>
+                <a href="#" title="Sửa người dùng" onclick=" Edit(@item.ID) "><i class="fa fa-pencil" aria-hidden="true"></i> </a> |
+                <a href="#" title="Chi tiết người dùng" data-toggle="modal" data-target="#modalDetails_@item.ID"><i class="fa fa-info-circle" aria-hidden="true"></i> </a> |
+                <a href="#" title="Xoá người dùng" data-toggle="modal" data-target="#modalDelete_@item.ID"><i class="fa fa-trash" aria-hidden="true"></i> </a> |
+                <a href="#" title="Reset password" data-toggle="modal" data-target="#modalReset_@item.ID"><i class="fa fa-refresh" aria-hidden="true"></i> </a>
+               
+                 @* Modal delete *@
+                <div class="modal fade" id="modalDelete_@item.ID" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Xoá người dùng</h4>
+                            </div>
+                            <div class="modal-body" id="contentModalDetails" style="min-width: 100px;">
+                                <table class="table  table-striped">
+                                    <tr>
+                                        <th>Tên người dùng</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().accountName)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().email)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tên hiển thị</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().displayname)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Modified</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().modified)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ảnh đại diện</th>
+                                        <td><img width="100" height="100" src="@Url.Content("~/Content/images/avatar/" + item.avatar)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày khởi tạo</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().created)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-xs-8"></div>
+                                @using (Html.BeginForm("Delete", "Users", new {id = item.ID}, FormMethod.Post, new {@class = "col-xs-2", style = "padding:2px"}))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-block btn-danger" id="btnDelete"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</button>
+
+                                }
+                                <div class="col-xs-2">
+                                    <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Đóng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* Modal reset *@
+                <div class="modal fade" id="modalReset_@item.ID" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Đặt lại mật khẩu</h4>
+                            </div>
+                            <div class="modal-body" id="contentModalDetails" style="min-width: 100px;">
+                                <p>Bạn có muốn đặt lại mật khẩu hay không?</p>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-xs-8"></div>
+                                @using (Html.BeginForm("Reset", "Users", new {id = item.ID}, FormMethod.Post, new {@class = "col-xs-2", style = "padding:2px"}))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="button" class="btn btn-block btn-primary" onclick=" ResetPass(@item.ID) " id="btnReset"> Có</button>
+
+                                }
+                                <div class="col-xs-2">
+                                    <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Không</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* Modal Details *@
+                <div class="modal fade" id="modalDetails_@item.ID" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Chi tiết người dùng</h4>
+                            </div>
+                            <div class="modal-body" id="contentModalDetails" style="min-width: 100px;">
+                                <table class="table  table-striped">
+                                    <tr>
+                                        <th>Tên người dùng</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().accountName)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().email)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tên hiển thị</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().displayname)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Modified</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().modified)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ảnh đại diện</th>
+                                        <td><img width="100" height="100" src="@Url.Content("~/Content/images/avatar/" + item.avatar)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày khởi tạo</th>
+                                        <td>@Html.DisplayFor(model => model.FirstOrDefault().created)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group form-inline">
+                                    <div class="col-xs-6"></div>
+                                    <div class="col-xs-2" style="padding: 2px">
+                                        <a type="button" class="btn btn-block btn-warning " href="@Url.Action("Edit", new {id = item.ID})"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
+                                    </div>
+                                    <div class="col-xs-2" style="padding: 2px">
+                                        <button type="button" onclick=" DeleteQuestion(@item.ID); " class="btn btn-block btn-danger" id="btnDelete"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</button>
+                                    </div>
+                                    <div class="col-xs-2" style="padding: 2px">
+                                        <button type="button" class="btn btn-block btn-default col-xs-2" data-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+<div>
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trong tổng số @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
+@* Modal edit *@
+<div class="modal fade" id="modalEdit" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sửa nhanh người dùng</h4>
+            </div>
+            <div class="modal-body" id="contentModalEdit" style="min-width:100px;">
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-warning" form="frmEdit" id="btnSaveEdit">Lưu Thay Đổi</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        function Edit(id) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("QuickEdit")",
+                data:{
+                    userID: id
+                },
+                beforeSend: function () {
+                    $("#contentModalEdit").css('background-image', 'url("@Href("~/Public/Loading_icon.gif")');
+                    $("#contentModalEdit").css('background-repeat', 'none');
+                    $("#contentModalEdit").css('text-align', 'center');
+                    $("#modalEdit").modal();
+                },
+                success: function (data) {
+                    $("#contentModalEdit").css('background-image', 'none');
+                    $("#contentModalEdit").html(data);
+                }
+            });
+        }
+        function ResetPass(id){
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Reset")",
+                data:{
+                id: id
+                },
+                success: function (data) {
+                    $("#modalReset_" + id).modal('hide');
+            }
+        });
+        }
+        
+  
+        function Details(id) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("QuickDetails")",
+                data: {
+                    userID: id
+                },
+                beforeSend: function () {
+                    $("#contentModalDetails").css('background-image', 'url("@Href("~/Public/Loading_icon.gif")');
+                    $("#contentModalDetails").css('background-repeat', 'none');
+                    $("#contentModalDetails").css('text-align', 'center');
+                    $("#modalDetails").modal();
+                },
+                success: function (data) {
+                    $("#contentModalDetails").css('background-image', 'none');
+                    $("#contentModalDetails").html(data);
+                }
+            });
+        }
+        function DeleteQuestion(id) {
+            $("#modalDetails_" + id).modal('hide');
+            $("#modalDelete_" + id).modal();
+        }
+</script>
+
