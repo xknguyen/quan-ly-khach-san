@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using KhachSan.Models;
 using PagedList;
+using System.Security.Cryptography;
+using System.Text;
 
 
 namespace KhachSan.Areas.Admin.Controllers
@@ -34,9 +36,9 @@ namespace KhachSan.Areas.Admin.Controllers
             ViewBag.SumPost = post.Count();
             //sort
             ViewBag.NameSort = String.IsNullOrEmpty(sort) ? "title_desc" : "";
-            ViewBag.EmailSort = sort == "created" ? "created_desc" : "created";
-            ViewBag.DisplaySort = sort == "author" ? "author_desc" : "author";
-            ViewBag.DisplaySort = sort == "active" ? "active_desc" : "active";
+            ViewBag.CreatSort = sort == "created" ? "created_desc" : "created";
+            ViewBag.AuthorSort = sort == "author" ? "author_desc" : "author";
+            ViewBag.ActiveSort = sort == "active" ? "active_desc" : "active";
             switch (sort)
             {
                 case "title_desc":
@@ -115,7 +117,7 @@ namespace KhachSan.Areas.Admin.Controllers
 
                 for (int i = 0; i < blogs.Count(); i++)
                 {
-                    //posts.Blogs.Add(db.Blogs.Find(blogs[i]));
+                    posts.Blogs.Add(db.Blogs.Find(blogs[i]));
                 }
                 string path = "~/Content/images/thuvien";
                 if (Request.Files[0] != null)
@@ -131,7 +133,7 @@ namespace KhachSan.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Author = new SelectList(db.Accounts, "ID", "UserName", posts.Author);
+            ViewBag.Author = new SelectList(db.Accounts, "ID", "accountName", posts.Author);
             return View(posts);
         }
 
@@ -216,7 +218,7 @@ namespace KhachSan.Areas.Admin.Controllers
                 {
                     Blog blog = blogs[i];
                     blog.Posts.Remove(posts);
-                    db.Entry(blogs).State = EntityState.Modified;
+                    db.Entry(blog).State = EntityState.Modified;
                     db.SaveChanges();
                 }
                 
@@ -225,22 +227,7 @@ namespace KhachSan.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult ViewPost(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post posts = db.Posts.Find(id);
-            if (posts == null)
-            {
-                return HttpNotFound();
-            }
-            posts.Seen++;
-            db.Entry(posts).State = EntityState.Modified;
-            db.SaveChanges();
-            return View(posts);
-        }
+        
         public ActionResult QuickEdit(int id)
         {
             ViewBag.ListBlogs = db.Blogs.Where(x => x.Parent == null && x.Active).ToList();
@@ -260,7 +247,7 @@ namespace KhachSan.Areas.Admin.Controllers
                 change.Description = posts.Description;
                 change.ContentPost = posts.ContentPost;
                 change.Active = posts.Active;
-                //change.Blogs = new List<Blogs>();
+                change.Blogs = new List<Blog>();
 
                 //Save pic
                 string path = "~/Content/images/thuvien";
@@ -275,13 +262,13 @@ namespace KhachSan.Areas.Admin.Controllers
 
                 foreach (var item in blogs)
                 {
-                    //change.Blogs.Add(db.Blogs.Find(item));
+                    change.Blogs.Add(db.Blogs.Find(item));
                 }
                 db.Entry(change).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Author = new SelectList(db.AccountGroups, "ID", "accountName", posts.Author);
+            ViewBag.Author = new SelectList(db.Accounts, "ID", "accountName", posts.Author);
             return View("Edit", posts);
         }
         [HttpPost]

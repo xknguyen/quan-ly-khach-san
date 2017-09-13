@@ -14,7 +14,7 @@
     <form class="form-inline pull-right" style="margin-right:40px;">
         @{var num = new[] { 5, 10, 20, 100 };
         }
-        @if (ViewBag.SumUsers > 5)
+        @if (ViewBag.SumBlogs > 5)
         {
             <label for="numDisplay">Hiển thị: &nbsp;</label>
             <div class="form-group">
@@ -33,7 +33,7 @@
         }
         <label for="txtSearch">Tìm kiếm: </label>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Tìm kiếm người dùng..." name="q" value="@ViewBag.SearchName" id="search-box">
+            <input type="text" class="form-control" placeholder="Tìm kiếm blog..." name="q" value="@ViewBag.SearchName" id="search-box">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
@@ -44,10 +44,10 @@
 <table class="table table-striped table-hover">
     <tr>
         <th>
-            @Html.ActionLink("Tên Blog", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Tên Blog", "Index", new { sortOrder = ViewBag.NameSort, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Parent", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Parent", "Index", new { sortOrder = ViewBag.ParentSort, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstOrDefault().Order)

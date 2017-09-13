@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Web.Mvc;
+
 namespace KhachSan.Models
 {
     using System;
@@ -22,6 +24,7 @@ namespace KhachSan.Models
         public int ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        [AllowHtml]
         public string ContentPost { get; set; }
         public System.DateTime Created { get; set; }
         public Nullable<int> Author { get; set; }

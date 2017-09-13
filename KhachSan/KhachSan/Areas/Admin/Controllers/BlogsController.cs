@@ -32,7 +32,7 @@ namespace KhachSan.Areas.Admin.Controllers
             ViewBag.SumBlogs = blog.Count();
             //sort
             ViewBag.NameSort = String.IsNullOrEmpty(sort) ? "name_desc" : "";
-            ViewBag.EmailSort = sort == "parent" ? "parent_desc" : "parent";
+            ViewBag.ParentSort = sort == "parent" ? "parent_desc" : "parent";
             switch (sort)
             {
                 case "name_desc":

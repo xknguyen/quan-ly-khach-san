@@ -4,67 +4,62 @@
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
 }
+@Scripts.Render("~/Scripts/AdminLTE/plugins/ckeditor/ckeditor.js")
+<h4>Sửa bài viết</h4>
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Posts", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Post</h4>
+
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Title)
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Title)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description)
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Description)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.ContentPost, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ContentPost)
+                @Html.TextAreaFor(model => model.ContentPost, new { @id = "ContentPost", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ContentPost)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Created, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Created)
-                @Html.ValidationMessageFor(model => model.Created)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Author, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Author)
-                @Html.ValidationMessageFor(model => model.Author)
+                <script>
+                        var config = {
+                            extraPlugins: 'codesnippet',
+                            codeSnippet_theme: 'monokai_sublime',
+                            height: 356
+                        };
+                        CKEDITOR.replace("ContentPost", config);
+                </script>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Picture, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Picture)
+                @{
+                    string p = "#";
+                    p = Model.Picture ?? "#";
+                }
+                <label id="lbPicture" class="btn btn-default" style="width: 100px; height: 100px; background-image: url(@Url.Content(p)); background-size :100%;background-repeat:round;">
+                    <input type="file" name="Picture" hidden id="ipPicture" style="display:none;" />
+                </label>
+                <small>(Click vào hình để thay đổi)</small>
                 @Html.ValidationMessageFor(model => model.Picture)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.UseDescription, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -72,15 +67,6 @@
                 @Html.ValidationMessageFor(model => model.UseDescription)
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Seen, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Seen)
-                @Html.ValidationMessageFor(model => model.Seen)
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Active, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -88,15 +74,63 @@
                 @Html.ValidationMessageFor(model => model.Active)
             </div>
         </div>
-
+        <div class="form-group">
+            <label>Thể loại</label>
+            @helper RenderHtmlBlogs(KhachSan.Models.Blog blog)
+{
+    var ischecked = false;
+    foreach (var item in Model.Blogs)
+    {
+        if (item.ID == blog.ID)
+        {
+            ischecked = true;
+            break;
+        }
+    }
+    <li class="list-group-item ">
+        <div class="checkbox">
+            <label class="btn btn-link"><input type="checkbox" @(ischecked ? "checked" : null) name="Blogs" value="@blog.ID" />@blog.Name </label> <span class="badge pull-right">@blog.Posts.Count</span>
+        </div>
+        <ul class="list-group">
+            @foreach (var item in blog.Blog1)
+            {
+                @RenderHtmlBlogs(item)
+            }
+        </ul>
+    </li>
+}
+            <ul class="list-group ">
+                @foreach (var item in ViewBag.ListBlogs)
+                {
+                    @RenderHtmlBlogs(item)
+                }
+            </ul>
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Lưu" class="btn btn-primary"/>
+                @Html.ActionLink("Quay lại", "Index")
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<!-- CK Editor -->
+
+<script>
+    
+    function readURLImag(input) {
+        debugger;
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#lbPicture").css("background-image", 'url(' + e.target.result + ')');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#ipPicture").change(function () {
+        readURLImag(this);
+    });
+
+</script>
