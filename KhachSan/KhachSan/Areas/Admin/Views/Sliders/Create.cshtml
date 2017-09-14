@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Quản lý trình chiếu";
     Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+    var duongDan = ViewBag.DuongDan;
 }
 
 <h2>Thêm bản trình chiếu</h2>
@@ -34,15 +35,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.image_Path, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="imagePath" />
+                @* biến imagePath truyền sang controllers để lưu,readURL(this) để hiển thị hình trước khi lưu  *@
+                <input type="file" name="imagePath" onchange=" readURL(this); "/>
+                <img id="blah" src="#" alt=""/>
+
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.active1, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.active, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.active1)
-                @Html.ValidationMessageFor(model => model.active1)
+                @Html.EditorFor(model => model.active)
+                @Html.ValidationMessageFor(model => model.active)
             </div>
         </div>
 

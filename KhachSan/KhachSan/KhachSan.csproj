@@ -137,6 +137,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoomsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlidersController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Models\Category.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckPermision.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -187,10 +189,14 @@
     <Compile Include="Models\GroupPath.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetaData\CategoriesMetaData.cs" />
+    <Compile Include="Models\MetaData\RoomsMetaData.cs" />
+    <Compile Include="Models\Common.cs" />
+    <Compile Include="Models\MetaData\SliderMetaData.cs" />
     <Compile Include="Models\MultiTemplate.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Paths.cs">
+    <Compile Include="Models\Path.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Room.cs">
@@ -226,7 +232,9 @@
     <Content Include="Scripts\ajax\Edit.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\Admin\Views\TemplateAdmin\_admin.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
@@ -256,6 +264,28 @@
     <Content Include="Scripts\CssFrontEnd\CSS.css" />
     <Content Include="Scripts\CssFrontEnd\datepicker\less\datepicker.less" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sliders\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Sliders\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Sliders\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Sliders\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Sliders\Index.cshtml" />
+    <Content Include="Scripts\CssLogin\font\fontawesome-webfont-0.eot" />
+    <Content Include="Scripts\CssLogin\font\fontawesome-webfont-62877.eot" />
+    <Content Include="Scripts\CssLogin\font\fontawesome-webfont-62877.ttf" />
+    <Content Include="Scripts\CssLogin\font\fontawesome-webfont-62877.woff" />
+    <Content Include="Scripts\CssLogin\font\glyphicons-regular-0.eot" />
+    <Content Include="Scripts\CssLogin\font\glyphicons-regular.eot" />
+    <Content Include="Scripts\CssLogin\font\glyphicons-regular.ttf" />
+    <Content Include="Scripts\CssLogin\font\glyphicons-regular.woff" />
+    <Content Include="Scripts\CssLogin\font\glyphiconshalflings-regular-0.eot" />
+    <Content Include="Scripts\CssLogin\font\glyphiconshalflings-regular.eot" />
+    <Content Include="Scripts\CssLogin\font\glyphiconshalflings-regular.ttf" />
+    <Content Include="Scripts\CssLogin\font\glyphiconshalflings-regular.woff" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <EntityDeploy Include="Models\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Database.Designer.cs</LastGenOutput>
@@ -263,11 +293,6 @@
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\Sliders\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Sliders\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Sliders\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Sliders\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Sliders\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CssFrontEnd\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Scripts\CssFrontEnd\bootstrap\css\bootstrap-theme.min.css" />
@@ -299,6 +324,148 @@
     <Content Include="Scripts\CssFrontEnd\js\jquery-3.2.1.min.js" />
     <Content Include="Scripts\CssFrontEnd\list-room.css" />
     <Content Include="Scripts\CssFrontEnd\Roomdetail.css" />
+    <Content Include="Scripts\CssLogin\css\bootstrap-responsive.css" />
+    <Content Include="Scripts\CssLogin\css\bootstrap-responsive.min.css" />
+    <Content Include="Scripts\CssLogin\css\bootstrap.css" />
+    <Content Include="Scripts\CssLogin\css\bootstrap.min.css" />
+    <Content Include="Scripts\CssLogin\css\chosen.css" />
+    <Content Include="Scripts\CssLogin\css\elfinder.min.css" />
+    <Content Include="Scripts\CssLogin\css\elfinder.theme.css" />
+    <Content Include="Scripts\CssLogin\css\font-awesome-ie7.min.css" />
+    <Content Include="Scripts\CssLogin\css\font-awesome.min.css" />
+    <Content Include="Scripts\CssLogin\css\fullcalendar.css" />
+    <Content Include="Scripts\CssLogin\css\glyphicons.css" />
+    <Content Include="Scripts\CssLogin\css\halflings.css" />
+    <Content Include="Scripts\CssLogin\css\ie.css" />
+    <Content Include="Scripts\CssLogin\css\ie9.css" />
+    <Content Include="Scripts\CssLogin\css\jquery-ui-1.8.21.custom.css" />
+    <Content Include="Scripts\CssLogin\css\jquery.cleditor.css" />
+    <Content Include="Scripts\CssLogin\css\jquery.gritter.css" />
+    <Content Include="Scripts\CssLogin\css\jquery.iphone.toggle.css" />
+    <Content Include="Scripts\CssLogin\css\jquery.noty.css" />
+    <Content Include="Scripts\CssLogin\css\noty_theme_default.css" />
+    <Content Include="Scripts\CssLogin\css\style-forms.css" />
+    <Content Include="Scripts\CssLogin\css\style-responsive.css" />
+    <Content Include="Scripts\CssLogin\css\style.css" />
+    <Content Include="Scripts\CssLogin\css\uniform.default.css" />
+    <Content Include="Scripts\CssLogin\css\uploadify.css" />
+    <Content Include="Scripts\CssLogin\font\glyphicons-regular.svg" />
+    <Content Include="Scripts\CssLogin\font\glyphiconshalflings-regular.svg" />
+    <Content Include="Scripts\CssLogin\img\arrows-active.png" />
+    <Content Include="Scripts\CssLogin\img\arrows-normal.png" />
+    <Content Include="Scripts\CssLogin\img\avatar.jpg" />
+    <Content Include="Scripts\CssLogin\img\bg-input-focus.png" />
+    <Content Include="Scripts\CssLogin\img\bg-input.png" />
+    <Content Include="Scripts\CssLogin\img\bg-login.jpg" />
+    <Content Include="Scripts\CssLogin\img\browser-chrome-big.png" />
+    <Content Include="Scripts\CssLogin\img\browser-firefox-big.png" />
+    <Content Include="Scripts\CssLogin\img\browser-ie.png" />
+    <Content Include="Scripts\CssLogin\img\browser-opera.png" />
+    <Content Include="Scripts\CssLogin\img\browser-safari.png" />
+    <Content Include="Scripts\CssLogin\img\buttons.gif" />
+    <Content Include="Scripts\CssLogin\img\chat-left%402x.png" />
+    <Content Include="Scripts\CssLogin\img\chat-left-metro%402x.png" />
+    <Content Include="Scripts\CssLogin\img\chat-left-metro.png" />
+    <Content Include="Scripts\CssLogin\img\chat-left.png" />
+    <Content Include="Scripts\CssLogin\img\chat-right%402x.png" />
+    <Content Include="Scripts\CssLogin\img\chat-right-metro%402x.png" />
+    <Content Include="Scripts\CssLogin\img\chat-right-metro.png" />
+    <Content Include="Scripts\CssLogin\img\chat-right.png" />
+    <Content Include="Scripts\CssLogin\img\chosen-sprite.png" />
+    <Content Include="Scripts\CssLogin\img\close-button-white.png" />
+    <Content Include="Scripts\CssLogin\img\close-button.png" />
+    <Content Include="Scripts\CssLogin\img\crop.gif" />
+    <Content Include="Scripts\CssLogin\img\dialogs.png" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo1.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo10.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo11.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo12.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo13.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo2.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo3.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo4.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo5.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo6.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo7.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo8.jpg" />
+    <Content Include="Scripts\CssLogin\img\gallery\photo9.jpg" />
+    <Content Include="Scripts\CssLogin\img\glyphicons-halflings-white.png" />
+    <Content Include="Scripts\CssLogin\img\glyphicons-halflings.png" />
+    <Content Include="Scripts\CssLogin\img\glyphicons-white.png" />
+    <Content Include="Scripts\CssLogin\img\glyphicons-white.svg" />
+    <Content Include="Scripts\CssLogin\img\glyphicons.png" />
+    <Content Include="Scripts\CssLogin\img\glyphicons.svg" />
+    <Content Include="Scripts\CssLogin\img\glyphicons_halflings-white.png" />
+    <Content Include="Scripts\CssLogin\img\glyphicons_halflings-white.svg" />
+    <Content Include="Scripts\CssLogin\img\glyphicons_halflings.png" />
+    <Content Include="Scripts\CssLogin\img\glyphicons_halflings.svg" />
+    <Content Include="Scripts\CssLogin\img\icons-big.png" />
+    <Content Include="Scripts\CssLogin\img\icons-small.png" />
+    <Content Include="Scripts\CssLogin\img\iphone-style-checkboxes\off-63584.png" />
+    <Content Include="Scripts\CssLogin\img\iphone-style-checkboxes\on-63584.png" />
+    <Content Include="Scripts\CssLogin\img\iphone-style-checkboxes\slider_center-63584.png" />
+    <Content Include="Scripts\CssLogin\img\iphone-style-checkboxes\slider_left-63584.png" />
+    <Content Include="Scripts\CssLogin\img\iphone-style-checkboxes\slider_right-63584.png" />
+    <Content Include="Scripts\CssLogin\img\progress.gif" />
+    <Content Include="Scripts\CssLogin\img\quicklook-bg.png" />
+    <Content Include="Scripts\CssLogin\img\quicklook-icons.png" />
+    <Content Include="Scripts\CssLogin\img\quote.png" />
+    <Content Include="Scripts\CssLogin\img\resize.png" />
+    <Content Include="Scripts\CssLogin\img\slider_r8.png" />
+    <Content Include="Scripts\CssLogin\img\spinner-mini.gif" />
+    <Content Include="Scripts\CssLogin\img\sprite.png" />
+    <Content Include="Scripts\CssLogin\img\timeline-bg.png" />
+    <Content Include="Scripts\CssLogin\img\timeline-left-arrow%402x.png" />
+    <Content Include="Scripts\CssLogin\img\timeline-left-arrow.png" />
+    <Content Include="Scripts\CssLogin\img\timeline-right-arrow%402x.png" />
+    <Content Include="Scripts\CssLogin\img\timeline-right-arrow.png" />
+    <Content Include="Scripts\CssLogin\img\toolbar.gif" />
+    <Content Include="Scripts\CssLogin\img\toolbar.png" />
+    <Content Include="Scripts\CssLogin\img\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Scripts\CssLogin\img\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\CssLogin\img\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Scripts\CssLogin\img\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Scripts\CssLogin\img\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Scripts\CssLogin\img\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Scripts\CssLogin\img\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\CssLogin\img\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Scripts\CssLogin\img\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\CssLogin\img\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\CssLogin\img\ui-icons_454545_256x240.png" />
+    <Content Include="Scripts\CssLogin\img\ui-icons_888888_256x240.png" />
+    <Content Include="Scripts\CssLogin\img\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\CssLogin\img\uploadify-cancel.png" />
+    <Content Include="Scripts\CssLogin\js\bootstrap.js" />
+    <Content Include="Scripts\CssLogin\js\bootstrap.min.js" />
+    <Content Include="Scripts\CssLogin\js\counter.js" />
+    <Content Include="Scripts\CssLogin\js\custom.js" />
+    <Content Include="Scripts\CssLogin\js\excanvas.js" />
+    <Content Include="Scripts\CssLogin\js\fullcalendar.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery-migrate-1.0.0.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery-ui-1.10.0.custom.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.chosen.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.cleditor.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.cookie.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.dataTables.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.elfinder.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.flot.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.flot.pie.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.flot.resize.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.flot.stack.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.gritter.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.imagesloaded.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.iphone.toggle.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.knob.modified.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.masonry.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.noty.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.raty.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.sparkline.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.ui.touch-punch.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.uniform.min.js" />
+    <Content Include="Scripts\CssLogin\js\jquery.uploadify-3.1.min.js" />
+    <Content Include="Scripts\CssLogin\js\modernizr.js" />
+    <Content Include="Scripts\CssLogin\js\retina.js" />
     <Content Include="Scripts\data\flot-data.js" />
     <Content Include="Scripts\data\morris-data.js" />
     <Content Include="Scripts\dist\css\sb-admin-2.css" />
@@ -468,6 +635,7 @@
     <Content Include="Views\FrontEndBookings\Details.cshtml" />
     <Content Include="Views\FrontEndBookings\Edit.cshtml" />
     <Content Include="Views\FrontEndBookings\Index.cshtml" />
+    <Content Include="Views\Home\login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

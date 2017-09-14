@@ -35,7 +35,7 @@ namespace KhachSan.Models
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<GroupPath> GroupPaths { get; set; }
         public virtual DbSet<MultiTemplate> MultiTemplates { get; set; }
-        public virtual DbSet<Paths> Paths1 { get; set; }
+        public virtual DbSet<Path> Paths { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<Slider> Sliders { get; set; }
     }

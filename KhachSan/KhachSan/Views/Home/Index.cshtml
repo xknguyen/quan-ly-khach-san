@@ -3,13 +3,13 @@
 @{
     ViewBag.Title = "Khách Sạn DaLat Place";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var slide = ViewBag.Slide;
+    var slider = ViewBag.Slider;
 }
 
 @section Slide{
     @* Hiển thị Slider trang chủ *@
     <div class="slider">
-        @foreach (var item in slide)
+        @foreach (var item in slider)
         {
             <img class="slide" src="@item.image_Path">
       

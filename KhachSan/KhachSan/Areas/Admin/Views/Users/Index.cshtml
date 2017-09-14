@@ -1,6 +1,7 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
 @model IPagedList<KhachSan.Models.Account>
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Danh Sách Nhân Viên";
@@ -58,7 +59,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.accountName, "Edit", new {id = item.ID})
+                @Html.ActionLink(item.accountName,"Edit",new {id = item.ID})
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.email)
@@ -70,7 +71,7 @@
                 <img width="100" height="100" src="@Url.Content("~/Content/images/avatar/" + item.avatar)"/>
             </td>
             <td>
-                <a href="#" title="Sửa người dùng" onclick=" Edit(@item.ID) "><i class="fa fa-pencil" aria-hidden="true"></i> </a> |
+                <a href="#" title="Sửa người dùng" onclick=" Edit(@item.ID)"><i class="fa fa-pencil" aria-hidden="true"></i> </a> |
                 <a href="#" title="Chi tiết người dùng" data-toggle="modal" data-target="#modalDetails_@item.ID"><i class="fa fa-info-circle" aria-hidden="true"></i> </a> |
                 <a href="#" title="Xoá người dùng" data-toggle="modal" data-target="#modalDelete_@item.ID"><i class="fa fa-trash" aria-hidden="true"></i> </a> |
                 <a href="#" title="Reset password" data-toggle="modal" data-target="#modalReset_@item.ID"><i class="fa fa-refresh" aria-hidden="true"></i> </a>

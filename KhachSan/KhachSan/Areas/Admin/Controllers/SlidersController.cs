@@ -7,12 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using KhachSan.Models;
-using System.IO;
+
 
 namespace KhachSan.Areas.Admin.Controllers
 {
+    using System.IO;
     public class SlidersController : Controller
     {
+
         private KhachSanEntities db = new KhachSanEntities();
 
         // GET: Admin/Sliders
@@ -47,17 +49,19 @@ namespace KhachSan.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string image_Name, string image_Description, HttpPostedFileBase imagePath, int active1)
+        public ActionResult Create(string image_Name, string image_Description, HttpPostedFileBase imagePath, int active)
         {
+            
             //lay ten file
             var fileName = Path.GetFileName(imagePath.FileName);
             //lưu hình vào folder 
             var path = Path.Combine(Server.MapPath("~/Content/images/Slider"), fileName);
+            ViewBag.DuongDan = path;
             //Lưu đường dẫn vào db
             var fileNew = "/Content/images/Slider/" + fileName;
             if (ModelState.IsValid)
             {
-                var slider = new Slider { image_Name = image_Name, image_Description = image_Description, active1 = active1 ,image_Path = fileNew };
+                var slider = new Slider { image_Name = image_Name, image_Description = image_Description, active= active ,image_Path = fileNew };
                 db.Sliders.Add(slider);
                 db.SaveChanges();
                 imagePath.SaveAs(path);

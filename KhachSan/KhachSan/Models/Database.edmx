@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KhachSanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KhachSanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="About">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="200" />
           <Property Name="content" Type="nvarchar" MaxLength="4000" />
           <Property Name="active" Type="int" />
@@ -19,10 +19,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="accountName" Type="nvarchar" MaxLength="50" />
-          <Property Name="email" Type="nvarchar" MaxLength="50" />
-          <Property Name="password" Type="nvarchar" MaxLength="50" />
-          <Property Name="displayname" Type="nvarchar" MaxLength="50" />
+          <Property Name="accountName" Type="nvarchar" MaxLength="500" />
+          <Property Name="email" Type="nvarchar" MaxLength="500" />
+          <Property Name="password" Type="nvarchar" MaxLength="500" />
+          <Property Name="displayname" Type="nvarchar" MaxLength="500" />
           <Property Name="created" Type="date" />
           <Property Name="modified" Type="date" />
           <Property Name="phone" Type="text" />
@@ -33,6 +33,7 @@
           <Property Name="accountGroupID" Type="int" />
           <Property Name="IPLast" Type="varchar" MaxLength="50" />
           <Property Name="IPCreated" Type="varchar" MaxLength="50" />
+          <Property Name="active" Type="bit" />
         </EntityType>
         <EntityType Name="AccountGroup">
           <Key>
@@ -42,66 +43,66 @@
           <Property Name="groupPathID" Type="int" />
           <Property Name="accountID" Type="int" />
           <Property Name="active" Type="int" />
-          <Property Name="description" Type="text" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Blog">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="title" Type="text" />
-          <Property Name="content" Type="text" />
-          <Property Name="active" Type="int" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="500" />
+          <Property Name="content" Type="nvarchar" MaxLength="4000" />
+          <Property Name="active" Type="bit" />
           <Property Name="accountID" Type="int" />
-          <Property Name="shortDescription" Type="text" />
+          <Property Name="shortDescription" Type="nvarchar" MaxLength="4000" />
           <Property Name="date" Type="date" />
         </EntityType>
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="custumerID" Type="int" />
-          <Property Name="bookingDate" Type="datetime" />
+          <Property Name="bookingDate" Type="date" />
           <Property Name="bookingStatus" Type="int" />
         </EntityType>
         <EntityType Name="BookingDetail">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="bookingID" Type="int" />
           <Property Name="roomID" Type="int" />
           <Property Name="detailQuantity" Type="int" />
           <Property Name="detailPrice" Type="float" />
           <Property Name="detailTotal" Type="int" />
-          <Property Name="bookingStart" Type="datetime" />
-          <Property Name="bookingEnd" Type="datetime" />
+          <Property Name="bookingStart" Type="date" />
+          <Property Name="bookingEnd" Type="date" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="text" />
-          <Property Name="description" Type="text" />
-          <Property Name="image" Type="text" />
+          <Property Name="name" Type="nvarchar" MaxLength="500" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" />
+          <Property Name="image" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="fullName" Type="text" />
-          <Property Name="address" Type="text" />
-          <Property Name="phone" Type="text" />
-          <Property Name="email" Type="text" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullName" Type="nvarchar" MaxLength="500" />
+          <Property Name="address" Type="nvarchar" MaxLength="500" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="GroupPath">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="accountGroupID" Type="int" />
           <Property Name="pathID" Type="int" />
         </EntityType>
@@ -117,9 +118,9 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="pathName" Type="text" />
-          <Property Name="pathDescription" Type="text" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pathName" Type="nvarchar" MaxLength="500" />
+          <Property Name="pathDescription" Type="nvarchar" MaxLength="500" />
           <Property Name="pathUrl" Type="text" />
           <Property Name="active" Type="bit" />
         </EntityType>
@@ -128,8 +129,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="roomName" Type="nvarchar" MaxLength="100" />
-          <Property Name="roomDescription" Type="nvarchar" MaxLength="4000" />
+          <Property Name="roomName" Type="nvarchar" MaxLength="500" />
+          <Property Name="roomDescription" Type="nvarchar" MaxLength="500" />
           <Property Name="roomPrice" Type="float" />
           <Property Name="categoryID" Type="int" />
           <Property Name="roomQuantily" Type="int" />
@@ -139,10 +140,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="image_Name" Type="text" />
-          <Property Name="image_Description" Type="text" />
-          <Property Name="image_Path" Type="varchar" MaxLength="200" />
-          <Property Name="active1" Type="int" />
+          <Property Name="image_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="image_Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="image_Path" Type="nvarchar" MaxLength="100" />
+          <Property Name="active" Type="int" />
         </EntityType>
         <Association Name="FK_Booking_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
@@ -185,18 +186,6 @@
           <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AccountGroup">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GroupPath">
-              <PropertyRef Name="accountGroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GroupPath_Path">
-          <End Role="Paths" Type="Self.Paths" Multiplicity="0..1" />
-          <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Paths">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="GroupPath">
@@ -246,17 +235,12 @@
             <End Role="AccountGroup" EntitySet="AccountGroup" />
             <End Role="GroupPath" EntitySet="GroupPath" />
           </AssociationSet>
-          <AssociationSet Name="FK_GroupPath_Path" Association="Self.FK_GroupPath_Path">
-            <End Role="Paths" EntitySet="Paths" />
-            <End Role="GroupPath" EntitySet="GroupPath" />
-          </AssociationSet>
           <AssociationSet Name="FK_Room_Category" Association="Self.FK_Room_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Room" EntitySet="Room" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KhachSanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -264,7 +248,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="active" Type="Int32" />
@@ -274,10 +258,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="accountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="displayname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="accountName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="displayname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="created" Type="DateTime" Precision="0" />
           <Property Name="modified" Type="DateTime" Precision="0" />
           <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -288,6 +272,7 @@
           <Property Name="accountGroupID" Type="Int32" />
           <Property Name="IPLast" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IPCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" />
         </EntityType>
         <EntityType Name="AccountGroup">
           <Key>
@@ -297,28 +282,28 @@
           <Property Name="groupPathID" Type="Int32" />
           <Property Name="accountID" Type="Int32" />
           <Property Name="active" Type="Int32" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="GroupPaths" Relationship="Self.FK_GroupPath_AccountGroup" FromRole="AccountGroup" ToRole="GroupPath" />
         </EntityType>
         <EntityType Name="Blog">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="active" Type="Int32" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" />
           <Property Name="accountID" Type="Int32" />
-          <Property Name="shortDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="shortDescription" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="date" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="custumerID" Type="Int32" />
-          <Property Name="bookingDate" Type="DateTime" Precision="3" />
+          <Property Name="bookingDate" Type="DateTime" Precision="0" />
           <Property Name="bookingStatus" Type="Int32" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Booking_Customer" FromRole="Booking" ToRole="Customer" />
           <NavigationProperty Name="BookingDetails" Relationship="Self.FK_BookingDetail_Booking" FromRole="Booking" ToRole="BookingDetail" />
@@ -327,14 +312,14 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="bookingID" Type="Int32" />
           <Property Name="roomID" Type="Int32" />
           <Property Name="detailQuantity" Type="Int32" />
           <Property Name="detailPrice" Type="Double" />
           <Property Name="detailTotal" Type="Int32" />
-          <Property Name="bookingStart" Type="DateTime" Precision="3" />
-          <Property Name="bookingEnd" Type="DateTime" Precision="3" />
+          <Property Name="bookingStart" Type="DateTime" Precision="0" />
+          <Property Name="bookingEnd" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Booking" Relationship="Self.FK_BookingDetail_Booking" FromRole="BookingDetail" ToRole="Booking" />
           <NavigationProperty Name="Room" Relationship="Self.FK_BookingDetail_Room" FromRole="BookingDetail" ToRole="Room" />
         </EntityType>
@@ -343,31 +328,30 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Rooms" Relationship="Self.FK_Room_Category" FromRole="Category" ToRole="Room" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="fullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_Customer" FromRole="Customer" ToRole="Booking" />
         </EntityType>
         <EntityType Name="GroupPath">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="accountGroupID" Type="Int32" />
           <Property Name="pathID" Type="Int32" />
           <NavigationProperty Name="AccountGroup" Relationship="Self.FK_GroupPath_AccountGroup" FromRole="GroupPath" ToRole="AccountGroup" />
-          <NavigationProperty Name="Path" Relationship="Self.FK_GroupPath_Path" FromRole="GroupPath" ToRole="Paths" />
         </EntityType>
         <EntityType Name="MultiTemplate">
           <Key>
@@ -377,24 +361,23 @@
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="active" Type="Boolean" />
         </EntityType>
-        <EntityType Name="Paths">
+        <EntityType Name="Path">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="pathName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="pathDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pathName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="pathDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="pathUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="active" Type="Boolean" />
-          <NavigationProperty Name="GroupPaths" Relationship="Self.FK_GroupPath_Path" FromRole="Paths" ToRole="GroupPath" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="roomName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="roomDescription" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="roomName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="roomDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="roomPrice" Type="Double" />
           <Property Name="categoryID" Type="Int32" />
           <Property Name="roomQuantily" Type="Int32" />
@@ -406,10 +389,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="image_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="image_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="image_Path" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="active1" Type="Int32" />
+          <Property Name="image_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="image_Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="image_Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Int32" />
         </EntityType>
         <Association Name="FK_GroupPath_AccountGroup">
           <End Role="AccountGroup" Type="Self.AccountGroup" Multiplicity="0..1" />
@@ -471,18 +454,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GroupPath_Path">
-          <End Role="Paths" Type="KhachSanModel.Paths" Multiplicity="0..1" />
-          <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Paths">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GroupPath">
-              <PropertyRef Name="accountGroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="KhachSanEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Abouts" EntityType="Self.About" />
           <EntitySet Name="Accounts" EntityType="Self.Account" />
@@ -494,7 +465,7 @@
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="GroupPaths" EntityType="Self.GroupPath" />
           <EntitySet Name="MultiTemplates" EntityType="Self.MultiTemplate" />
-          <EntitySet Name="Paths1" EntityType="KhachSanModel.Paths" />
+          <EntitySet Name="Paths" EntityType="Self.Path" />
           <EntitySet Name="Rooms" EntityType="Self.Room" />
           <EntitySet Name="Sliders" EntityType="Self.Slider" />
           <AssociationSet Name="FK_GroupPath_AccountGroup" Association="Self.FK_GroupPath_AccountGroup">
@@ -517,10 +488,6 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Room" EntitySet="Rooms" />
           </AssociationSet>
-          <AssociationSet Name="FK_GroupPath_Path" Association="Self.FK_GroupPath_Path">
-            <End Role="Paths" EntitySet="Paths1" />
-            <End Role="GroupPath" EntitySet="GroupPaths" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -541,6 +508,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="KhachSanModel.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="accountName" ColumnName="accountName" />
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -646,8 +614,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Paths1">
-            <EntityTypeMapping TypeName="KhachSanModel.Paths">
+          <EntitySetMapping Name="Paths">
+            <EntityTypeMapping TypeName="KhachSanModel.Path">
               <MappingFragment StoreEntitySet="Paths">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="pathName" ColumnName="pathName" />
@@ -672,11 +640,11 @@
           <EntitySetMapping Name="Sliders">
             <EntityTypeMapping TypeName="KhachSanModel.Slider">
               <MappingFragment StoreEntitySet="Slider">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="image_Path" ColumnName="image_Path" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="image_Name" ColumnName="image_Name" />
                 <ScalarProperty Name="image_Description" ColumnName="image_Description" />
-                <ScalarProperty Name="image_Path" ColumnName="image_Path" />
-                <ScalarProperty Name="active1" ColumnName="active1" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

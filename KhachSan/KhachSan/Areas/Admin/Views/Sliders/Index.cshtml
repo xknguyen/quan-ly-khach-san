@@ -22,7 +22,7 @@
             @Html.DisplayNameFor(model => model.image_Path)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.active1)
+            @Html.DisplayNameFor(model => model.active)
         </th>
         <th></th>
     </tr>
@@ -36,10 +36,10 @@
             @Html.DisplayFor(modelItem => item.image_Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.image_Path)
+            <img width="100" height="100" src="@Url.Content(item.image_Path)" />
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.active1)
+            @Html.DisplayFor(modelItem => item.active)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

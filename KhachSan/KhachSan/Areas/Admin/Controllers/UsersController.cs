@@ -101,6 +101,15 @@ namespace KhachSan.Areas.Admin.Controllers
                     string filename = Path.GetFileName(Request.Files[0].FileName);
                     Request.Files[0].SaveAs(Path.Combine(pathToSave, filename));
                     users.avatar = filename;
+                    var username = Request.Form["accountName"];
+                    var password = Request.Form["password"];
+                    string passwordMD5 = Common.encrypt(username + password);
+                    users.password = passwordMD5;
+                    users.created = DateTime.Now;
+                    db.Accounts.Add(users);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                    
                 }
                 db.Accounts.Add(users);
                 db.SaveChanges();
@@ -236,8 +245,9 @@ namespace KhachSan.Areas.Admin.Controllers
             Account user = db.Accounts.Find(id);
             if (user != null)
             {
-                MD5 pass = MD5.Create();
-                user.password = GetMd5Hash(pass, "123456");
+                //MD5 pass = MD5.Create();
+                
+                user.password = Common.encrypt(user.accountName+"1");
                 db.SaveChanges();
             }
         }
