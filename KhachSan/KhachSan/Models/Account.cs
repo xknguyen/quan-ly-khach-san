@@ -29,5 +29,6 @@ namespace KhachSan.Models
         public Nullable<int> accountGroupID { get; set; }
         public string IPLast { get; set; }
         public string IPCreated { get; set; }
+        public Nullable<bool> active { get; set; }
     }
 }

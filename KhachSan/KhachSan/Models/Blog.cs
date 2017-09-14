@@ -17,7 +17,7 @@ namespace KhachSan.Models
         public int ID { get; set; }
         public string title { get; set; }
         public string content { get; set; }
-        public Nullable<int> active { get; set; }
+        public Nullable<bool> active { get; set; }
         public Nullable<int> accountID { get; set; }
         public string shortDescription { get; set; }
         public Nullable<System.DateTime> date { get; set; }

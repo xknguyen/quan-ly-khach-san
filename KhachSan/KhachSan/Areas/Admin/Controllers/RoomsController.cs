@@ -22,7 +22,6 @@ namespace KhachSan.Areas.Admin.Controllers
                        select a;
 
             ViewBag.CurrentSort = sort;
-
             //search
             if (!String.IsNullOrEmpty(q))
             {
@@ -39,12 +38,6 @@ namespace KhachSan.Areas.Admin.Controllers
                 case "name_desc":
                     room = room.OrderByDescending(s => s.roomName);
                     break;
-                //case "Email":
-                //    room = room.OrderBy(s => s.email);
-                //    break;
-                //case "email_desc":
-                //    room = room.OrderByDescending(s => s.email);
-                //    break;
                 default:
                     room = room.OrderBy(s => s.roomName);
                     break;
@@ -85,10 +78,16 @@ namespace KhachSan.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,roomName,roomDescription,roomPrice,categoryID,roomQuantily")] Room room)
+        public ActionResult Create( string roomName,string roomDescription,float roomPrice,int categoryID,int roomQuantily)
         {
+            Room room = new Room();
             if (ModelState.IsValid)
             {
+                room.roomName = roomName;
+                room.roomDescription = roomDescription;
+                room.roomPrice = roomPrice;
+                room.categoryID = categoryID;
+                room.roomQuantily = roomQuantily;
                 db.Rooms.Add(room);
                 db.SaveChanges();
                 return RedirectToAction("Index");

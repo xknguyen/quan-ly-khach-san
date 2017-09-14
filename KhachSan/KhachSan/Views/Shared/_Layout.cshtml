@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var Check = ViewBag.CheckAdmin;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <title>Khách Sạn DaLat Place</title>
@@ -57,7 +60,18 @@
                             <a href="Contact.html">Liên hệ</a>
                         </li>
                         <li>
-                            <a href="/Admin/">Trang Quản Trị</a>
+                            @{
+                                if (Check == 1)
+                                {
+                                    <a href="/Admin/">Trang Quản Trị</a>
+
+                                }
+                                else
+                                {<a href="#"></a>
+                               
+                                }
+                            }
+
                         </li>
                     </ul>
                 </div>
@@ -65,7 +79,7 @@
         </nav>
         <div class="clearfix"></div>
         <!--Slide chạy hình-->
-        @RenderSection("Slide",required:false)
+        @RenderSection("Slide", required: false)
         @RenderBody()
         <!--Footer-->
         <div class="footer">

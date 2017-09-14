@@ -18,6 +18,6 @@ namespace KhachSan.Models
         public string image_Name { get; set; }
         public string image_Description { get; set; }
         public string image_Path { get; set; }
-        public Nullable<int> active1 { get; set; }
+        public Nullable<int> active { get; set; }
     }
 }

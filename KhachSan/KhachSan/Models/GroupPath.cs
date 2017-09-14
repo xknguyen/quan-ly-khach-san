@@ -19,6 +19,5 @@ namespace KhachSan.Models
         public Nullable<int> pathID { get; set; }
     
         public virtual AccountGroup AccountGroup { get; set; }
-        public virtual Paths Path { get; set; }
     }
 }
