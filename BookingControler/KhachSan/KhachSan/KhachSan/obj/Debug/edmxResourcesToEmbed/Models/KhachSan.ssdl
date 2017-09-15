@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KhachSanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Abouts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="200" />
+    <Property Name="content" Type="nvarchar" MaxLength="4000" />
+    <Property Name="active" Type="int" />
+  </EntityType>
+  <EntityType Name="AccountGroups">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="groupPathID" Type="int" />
+    <Property Name="accountID" Type="int" />
+    <Property Name="active" Type="int" />
+    <Property Name="description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="accountName" Type="varchar" MaxLength="20" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="fullName" Type="varchar(max)" />
+    <Property Name="imagePath" Type="varchar(max)" />
+    <Property Name="birthDay" Type="datetime" />
+    <Property Name="phone" Type="varchar(max)" />
+    <Property Name="email" Type="varchar(max)" />
+    <Property Name="address" Type="varchar(max)" />
+    <Property Name="createDate" Type="datetime" />
+    <Property Name="lastLogin" Type="datetime" />
+    <Property Name="accountGroupID" Type="int" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Blogs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="title" Type="varchar(max)" />
+    <Property Name="content" Type="varchar(max)" />
+    <Property Name="active" Type="int" />
+    <Property Name="accountID" Type="int" />
+    <Property Name="shortDescription" Type="varchar(max)" />
+    <Property Name="date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BookingDetails">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bookingID" Type="int" />
+    <Property Name="roomID" Type="int" />
+    <Property Name="detailQuantity" Type="int" />
+    <Property Name="detailPrice" Type="float" />
+    <Property Name="detailTotal" Type="int" />
+    <Property Name="bookingStart" Type="datetime" />
+    <Property Name="bookingEnd" Type="datetime" />
+    <Property Name="typeRoom" Type="varchar(max)" />
+    <Property Name="roomQuantity" Type="int" />
+  </EntityType>
+  <EntityType Name="Bookings">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="custumerID" Type="int" />
+    <Property Name="bookingDate" Type="datetime" />
+    <Property Name="bookingStatus" Type="bit" />
+  </EntityType>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar(max)" />
+    <Property Name="description" Type="varchar(max)" />
+    <Property Name="image" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fullName" Type="nvarchar" MaxLength="50" />
+    <Property Name="address" Type="nvarchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar(max)" />
+    <Property Name="email" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="GroupPaths">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="accountGroupID" Type="int" />
+    <Property Name="pathID" Type="int" />
+  </EntityType>
+  <EntityType Name="MultiTemplates">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar(max)" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Paths">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="pathName" Type="varchar(max)" />
+    <Property Name="pathDescription" Type="varchar(max)" />
+    <Property Name="pathUrl" Type="varchar(max)" />
+    <Property Name="active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Rooms">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="roomName" Type="varchar(max)" />
+    <Property Name="roomDescription" Type="varchar(max)" />
+    <Property Name="roomPrice" Type="float" />
+    <Property Name="categoryID" Type="int" />
+    <Property Name="roomQuantily" Type="int" />
+    <Property Name="roomImage" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Sliders">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="image_Name" Type="varchar(max)" />
+    <Property Name="image_Description" Type="varchar(max)" />
+    <Property Name="active1" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_dbo_AccountGroup_dbo_Account_accountID">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="0..1" />
+    <End Role="AccountGroups" Type="Self.AccountGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AccountGroups">
+        <PropertyRef Name="accountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Blog_dbo_Account_accountID">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="0..1" />
+    <End Role="Blogs" Type="Self.Blogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Blogs">
+        <PropertyRef Name="accountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Booking_dbo_Customer_custumerID">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Bookings">
+        <PropertyRef Name="custumerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_BookingDetail_dbo_Booking_bookingID">
+    <End Role="Bookings" Type="Self.Bookings" Multiplicity="0..1" />
+    <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bookings">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BookingDetails">
+        <PropertyRef Name="bookingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_BookingDetail_dbo_Room_roomID">
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="0..1" />
+    <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BookingDetails">
+        <PropertyRef Name="roomID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_GroupPath_dbo_AccountGroup_accountGroupID">
+    <End Role="AccountGroups" Type="Self.AccountGroups" Multiplicity="0..1" />
+    <End Role="GroupPaths" Type="Self.GroupPaths" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccountGroups">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GroupPaths">
+        <PropertyRef Name="accountGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_GroupPath_dbo_Path_accountGroupID">
+    <End Role="Paths" Type="Self.Paths" Multiplicity="0..1" />
+    <End Role="GroupPaths" Type="Self.GroupPaths" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paths">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GroupPaths">
+        <PropertyRef Name="accountGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Room_dbo_Category_categoryID">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+    <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Rooms">
+        <PropertyRef Name="categoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KhachSanModelStoreContainer">
+    <EntitySet Name="Abouts" EntityType="Self.Abouts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AccountGroups" EntityType="Self.AccountGroups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Blogs" EntityType="Self.Blogs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BookingDetails" EntityType="Self.BookingDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GroupPaths" EntityType="Self.GroupPaths" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MultiTemplates" EntityType="Self.MultiTemplates" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Paths" EntityType="Self.Paths" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sliders" EntityType="Self.Sliders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_AccountGroup_dbo_Account_accountID" Association="Self.FK_dbo_AccountGroup_dbo_Account_accountID">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="AccountGroups" EntitySet="AccountGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Blog_dbo_Account_accountID" Association="Self.FK_dbo_Blog_dbo_Account_accountID">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Blogs" EntitySet="Blogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Booking_dbo_Customer_custumerID" Association="Self.FK_dbo_Booking_dbo_Customer_custumerID">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Bookings" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_BookingDetail_dbo_Booking_bookingID" Association="Self.FK_dbo_BookingDetail_dbo_Booking_bookingID">
+      <End Role="Bookings" EntitySet="Bookings" />
+      <End Role="BookingDetails" EntitySet="BookingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_BookingDetail_dbo_Room_roomID" Association="Self.FK_dbo_BookingDetail_dbo_Room_roomID">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="BookingDetails" EntitySet="BookingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_GroupPath_dbo_AccountGroup_accountGroupID" Association="Self.FK_dbo_GroupPath_dbo_AccountGroup_accountGroupID">
+      <End Role="AccountGroups" EntitySet="AccountGroups" />
+      <End Role="GroupPaths" EntitySet="GroupPaths" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_GroupPath_dbo_Path_accountGroupID" Association="Self.FK_dbo_GroupPath_dbo_Path_accountGroupID">
+      <End Role="Paths" EntitySet="Paths" />
+      <End Role="GroupPaths" EntitySet="GroupPaths" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Room_dbo_Category_categoryID" Association="Self.FK_dbo_Room_dbo_Category_categoryID">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Rooms" EntitySet="Rooms" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
