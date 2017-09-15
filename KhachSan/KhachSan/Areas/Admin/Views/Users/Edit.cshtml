@@ -20,7 +20,7 @@
         }
     }
 }
-@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { id = "SaveEdit", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -87,7 +87,7 @@
         </tr>
     </table>
 <div class="form-group">
-    <button type="submit" class="btn btn-warning" id="btnSaveEdit"><i class="fa fa-floppy-o" aria-hidden="true"></i>Lưu thay đổi</button>
+    <button type="submit" form="SaveEdit" class="btn btn-warning" id="btnSaveEdit"><i class="fa fa-floppy-o" aria-hidden="true"></i>Lưu thay đổi</button>
     @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-default" })
 </div>
 }

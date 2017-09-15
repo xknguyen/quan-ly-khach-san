@@ -145,8 +145,9 @@ namespace KhachSan.Areas.Admin.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                else
-               
+         
+                db.Entry(users).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(users);
