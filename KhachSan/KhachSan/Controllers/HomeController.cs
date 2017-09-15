@@ -30,6 +30,12 @@ namespace KhachSan.Controllers
                     ViewBag.CheckAdmin = 1;
                    
                 }
+                else if (account.accountGroupID == 2)
+                {
+                    //gán ==2 để so sánh bên view
+                    ViewBag.CheckAdmin = 2;
+                }
+                
             }
             else
             {
@@ -50,9 +56,10 @@ namespace KhachSan.Controllers
         {
             return db.Sliders.Where(x => x.active == 1).OrderBy(y => y.image_Path).ToList();
         }
+
+        
         public ActionResult login()
         {
-
             return View();
         }
         //kiem tra thuoc nhom nao

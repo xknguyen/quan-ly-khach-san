@@ -56,7 +56,7 @@ namespace KhachSan.Areas.Admin.Controllers
             var fileName = Path.GetFileName(imagePath.FileName);
             //lưu hình vào folder 
             var path = Path.Combine(Server.MapPath("~/Content/images/Slider"), fileName);
-            ViewBag.DuongDan = path;
+          
             //Lưu đường dẫn vào db
             var fileNew = "/Content/images/Slider/" + fileName;
             if (ModelState.IsValid)
@@ -91,15 +91,23 @@ namespace KhachSan.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,image_Name,image_Description,image_Path,active1")] Slider slider)
+        public ActionResult Edit(int id,string image_Name, string image_Description, HttpPostedFileBase imagePath, int active)
         {
+            var fileName = Path.GetFileName(imagePath.FileName);
+            //lưu hình vào folder 
+            var path = Path.Combine(Server.MapPath("~/Content/images/Slider"), fileName);
+
+            //Lưu đường dẫn vào db
+            var fileNew = "/Content/images/Slider/" + fileName;
             if (ModelState.IsValid)
             {
+                var slider= new Slider {ID=id, image_Name = image_Name, image_Description = image_Description, active = active, image_Path = fileNew };
                 db.Entry(slider).State = EntityState.Modified;
                 db.SaveChanges();
+                imagePath.SaveAs(path);
                 return RedirectToAction("Index");
             }
-            return View(slider);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Sliders/Delete/5

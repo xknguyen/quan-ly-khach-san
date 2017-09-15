@@ -139,26 +139,54 @@ namespace KhachSan.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,accountName,email,password,displayname,created,modified,phone,address,avatar,lastLogin,IPLast,IPCreated")] Account users, HttpPostedFileBase filebase)
+        public ActionResult Edit( int ID, string accountName, string email,string displayname, string avatar, HttpPostedFileBase filebase)
         {
-            if (ModelState.IsValid)
+            Account user = db.Accounts.Find(ID);
+            //if (ModelState.IsValid)
+            //{
+            //    if (Request.Files.Count > 0 || !String.IsNullOrEmpty(Request.Files[0].FileName))
+            //    {
+            //        string path = "~/Content/images/avatar";
+            //        string pathToSave = Server.MapPath(path);
+            //        string filename = Path.GetFileName(Request.Files[0].FileName);
+            //        Request.Files[0].SaveAs(Path.Combine(pathToSave, filename));
+            //        user.avatar = filename;
+            //        db.Entry(user).State = EntityState.Modified;
+            //        db.SaveChanges();
+            //        return RedirectToAction("Index");
+            //    }
+            //    else
+
+            //        return RedirectToAction("Index");
+            //}
+            //return View(users);
+            if (user != null)
             {
+                user.accountName = accountName;
+                user.email = email;
+                //user.password = password;
+                user.displayname = displayname;
+                //user.created = created;
+                //user.modified = datemodified;
+                //user.phone = phone;
+                //user.address = address;
                 if (Request.Files.Count > 0 && !String.IsNullOrEmpty(Request.Files[0].FileName))
                 {
                     string path = "~/Content/images/avatar";
                     string pathToSave = Server.MapPath(path);
                     string filename = Path.GetFileName(Request.Files[0].FileName);
                     Request.Files[0].SaveAs(Path.Combine(pathToSave, filename));
-                    users.avatar = filename;
-                    db.Entry(users).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    user.avatar = filename;
                 }
-                else
-               
-                return RedirectToAction("Index");
+                //user.isadmin = isAdmin;
+                user.lastLogin = DateTime.Now;
+                //user.IPLast = IPLast;
+                //user.active = active;
+
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
             }
-            return View(users);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Users/Delete/5

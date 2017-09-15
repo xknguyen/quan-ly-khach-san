@@ -1,19 +1,47 @@
 ﻿@model IEnumerable<KhachSan.Models.Category>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh Sách Loại Phòng";
     Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
+<div class="form-group form-inline" style="padding:20px 0 40px 0;">
+    @Html.ActionLink("Thêm Loại Phòng", "Create", null, new { @class = "btn btn-primary pull-left" })
+    <form class="form-inline pull-right" style="margin-right:40px;">
+        @{var num = new[] { 5, 10, 20, 100 };
+        }
+        @if (ViewBag.SumRoom > 5)
+            {
+            <label for="numDisplay">Hiển thị: &nbsp;</label>
+            <div class="form-group">
+                <select class="form-control " name="numDisplay" id="numDisplay" onchange="this.form.submit()">
+                    @for (int i = 0; i < num.Count(); i++)
+                    {
+                        if (num[i] >= ViewBag.SumRoom)
+                        {
+                            <option value="0" selected="@(ViewBag.NumDisplay==0)">Tất cả</option>
+                            break;
+                        }
+                        <option value="@num[i]" selected="@(ViewBag.NumDisplay==num[i])">@num[i]</option>
+                    }
+                </select>
+            </div>
+        }
+        <label for="txtSearch">Tìm kiếm: </label>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Tìm kiếm phòng..." name="q" value="@ViewBag.SearchName" id="search-box">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </form>
+</div>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.name)
+           @Html.ActionLink("Loại Phòng", "Index", new { sort = ViewBag.NameSort, q = ViewBag.SearchName })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.description)
@@ -27,18 +55,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.name)
+            @Html.ActionLink(item.name, "Edit", new { id = item.ID })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.description)
+            @Html.ActionLink(item.description, "Edit", new { id = item.ID })
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.image)
+            <img width="100" height="100" src="@Url.Content(item.image)"/>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |*@
+            <a class="detail-link" href="@Url.Action("Details", new { id = item.ID })"><span>Chi Tiết</span></a>
+            <a class="delete-link" href="@Url.Action("Delete", new { id = item.ID })"><span>Xóa</span></a>
         </td>
     </tr>
 }

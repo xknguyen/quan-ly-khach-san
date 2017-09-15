@@ -130,6 +130,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Content\images\avatar\" />
+    <Folder Include="Content\images\RoomCategory\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -293,6 +294,7 @@
     <Content Include="Models\Database.edmx.diagram">
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Admin\ViewNhanVien.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CssFrontEnd\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Scripts\CssFrontEnd\bootstrap\css\bootstrap-theme.min.css" />

@@ -3,23 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
 namespace KhachSan.Models
 {
-    public class CheckPermision
+    public class CheckPermision:Controller
     {
-        public static int Check(string Permision)
+        KhachSanEntities db = new KhachSanEntities();
+        public static  int Check( Account account)
         {
-            string [] per = new string[3] { "/Admin/Sliders/", "/Admin/", "/Admin" };
-            for (int i = 0; i < 3; i++)
+            
+            if (account != null)
             {
-                if (per[i]==Permision)
+                try
                 {
-                    return 1;
+                    //là admin
+                    if (account.isadmin == true)
+                    {
+                        return 1;
+                    }
+                    //là nhân viên
+                    else if (account.accountGroupID == 2)
+                    {
+
+                        return 2;
+
+                    }
+                    //là khách hàng
+                    else
+                    {
+                        return 3;
+                    }
                 }
+                catch (Exception)
+                {
+                    //là khách hàng
+                    return 3;
+                }
+
+
             }
-            return 0;
+            //chua đăng nhập
+            else
+                return 4;
+
+           
         }
     }
 }

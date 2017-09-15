@@ -20,6 +20,7 @@ namespace KhachSan.Areas.Admin
                 new { action = "Index", controller = "Admin", id = UrlParameter.Optional },
                 new[] { "KhachSan.Areas.Admin.Controllers" }
             );
+           
         }
     }
 }
