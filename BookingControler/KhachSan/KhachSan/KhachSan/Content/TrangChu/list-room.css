@@ -1,0 +1,808 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: initial;
+}
+/*head*/
+.navbar-header
+{
+    margin-left: 100px;
+    border-right: 1px solid #e1e1e1;
+    padding: 20px 70px 20px 0;
+    
+}
+.nav
+{
+    height: auto;
+    
+}
+.nav li a
+{
+    padding-top: 30px;
+    font-size: 16px;
+}
+.nav li a:hover
+{
+    color: #00cccc;
+    background: white;
+}
+.navbar-default .navbar-nav>li>a:hover
+{
+    color: #00cccc;
+    background: white;
+}
+.nav li
+{
+    padding:5px 20px 0 30px;
+}
+.navbar-default .navbar-nav>.open>a:focus,.navbar-default .navbar-nav>.open>a:hover{
+    background-color: white;
+}
+.navbar-default .navbar-nav>.open>a{
+    background: white;
+}
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 15px;
+    padding-top: 0;
+}
+.navbar-nav>li>.dropdown-menu li {
+    padding-top: 0;
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 10px;
+}
+.navbar-nav>li>.dropdown-menu a:hover
+{
+    color: #00cccc;
+    background: white;
+}
+.navbar-nav>li>.dropdown-menu li:last-child {
+    padding-top: 0;
+    
+    border-bottom: none;
+}
+.navbar-brand
+{
+    width: 400px;
+    height: 100px;
+    float: left;
+    border-right: 1px solid #cccccc;
+}
+.navbar-brand img
+{
+   height: 100px;
+}
+.menu ul{
+    list-style-type: none;
+}
+.menu li
+{
+    
+    float: left;
+    line-height: 100px;
+    position: relative;
+}
+.menu a{
+    color: gray;
+    font-weight: bold;
+    text-decoration: none;
+    padding-left: 50px;
+    display: block;
+}
+.menu a:hover
+{
+    color: #00cccc;
+}
+.menu li .sub-menu
+{
+    position: absolute;
+    display: none;
+}
+.menu li:hover .sub-menu
+{
+    display: block;
+    z-index: 2
+}
+.menu li .sub-menu li{
+    width: 200px;
+    line-height: 50px;
+    border-bottom: 1px solid #cccccc;
+    background-color: white;
+}
+.clearfix:after{
+    clear: both;
+    content: ".";
+    display: block;
+    width: 0px;
+    height: 0px;
+}
+/*bìa*/
+.parallax-effect
+{
+    overflow: hidden;
+    outline: none;
+    background: #fff;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    width: 100%;
+    position: relative;
+    line-height: 1.42857143 !important;
+    border-color: #75c5cf;
+}
+#parallax-pagetitle
+{
+    background-image:url("Hinh/parallax-01.jpg");
+    background-position: 50% -76px;
+    height: 140px;
+    line-height: 1.42857143 !important;
+    color: white;
+}
+.color-overlay
+{
+    position: relative;
+    height: 100%;
+    background: rgba(117,197,207,0.8);
+    
+}
+.container
+{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.breadcrumb
+{
+    padding: 0;
+    margin: 30px 0 20px 0;
+    list-style: none;
+}
+.breadcrumb  li{
+    float: left;
+    margin-right: 20px;
+    
+}
+
+.breadcrumb li +li:before{
+    
+    content: "/\00a0";
+}
+.breadcrumb a
+{
+    color: white;
+}
+.container h1
+{
+    padding-top: 30px;
+    font-size: 40px;
+}
+/*menu nav*/
+.nav
+{
+}
+.row-nav
+{
+    margin: 30px 0 0 100px;
+}
+.list-nav
+{
+    list-style-type: none;
+}
+.list-nav li{
+    float: left;
+    position: relative;
+    display: block;
+    margin: 20px 20px 0 20px;
+    padding: 10px;
+    
+    
+}
+.list-nav a{
+    text-decoration: none;
+    text-align: center;
+    color: gray;
+}
+.active-nav
+{
+    background-color: #64cedb;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 15px;
+    border: 1px solid #00cccc;
+    border-radius: 4px;
+}
+.list-nav li:hover
+{
+    background-color: #efefef;
+    border: 1px solid #efefef;
+    border-radius: 4px;
+}
+/*giới thiệu phòng*/
+.content
+{
+    margin: 0 auto;
+    display: block;
+    margin-top: 20px;
+    position: relative;
+}
+.content h2
+{
+    text-align: center;
+    color: #5e5e5e;
+    font-weight: bold;
+    font-size: 24px;
+    overflow: hidden;
+    margin-bottom: 50px;
+    
+}
+h2.line:before,h2.line:after
+{
+    display:inline-block;
+    width:32%;
+    height:1px;
+    border-top: 2px solid #ccc;
+    content: "";
+    vertical-align: middle;
+}
+
+h2:before {
+ right: 0.5em;
+ margin-left: -50%;
+}
+h2:after {
+ left: 0.5em;
+ margin-right: -50%;
+}
+h2 span
+{
+    padding: 0px 20px 0px 20px;
+}
+.room-list
+{
+    margin: 0px 50px 0px 90px;
+    overflow: hidden;
+}
+
+.room-thumb
+{
+    background-color: #fff;
+    width: 356px;
+    height: 300px;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #ebebeb;
+    -webkit-box-shadow: 0 2px 0 0 #e0e0e0;
+    box-shadow: 0 2px 0 0 #e0e0e0;
+    margin-bottom: 60px;
+    margin-left: 30px;
+}
+
+.room-thumb img{
+    display: block;
+    float: left;
+    border-bottom: 1px solid #ebebeb;
+    width: 100%;
+    height: 228px;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+.mask
+{
+    position: absolute;
+    overflow: hidden;
+    width: 356px;
+    height: 300px;
+    top: 0;
+    left: 0;
+    transform: translateY(228px);
+    transition: all 0.3s ease-in-out;
+   
+}
+.room-thumb:hover img 
+{
+    transform: translateY(-228px);
+}
+
+.room-thumb:hover .mask {
+    transform: translateY(0px);
+}
+.room-thumb .room-name
+{
+    overflow: hidden;
+    display: table;
+    height: 25px;
+    width: 100%;
+    border-bottom: 1px solid #efefef;
+    margin-left: -1px;
+    margin-top: -1px;
+}
+
+.room-name h4
+{
+    color: gray;
+    padding: 10px 0px 10px 30px;
+    display: inline;
+    float: left;
+    font-size: 20px;
+}
+.room-name span
+{
+    color: #75c5cf;
+}
+.room-name .price
+{
+    padding: 10px;
+    font-size: 14px;
+    display: inline;
+    float: right;
+    font-weight: bold;
+    color: #00cccc;
+    border-left: 1px solid #efefef;
+    background: rgba(90,186,198,0.03);
+
+}
+.inf .list-unstyled
+{
+    display: block;
+    float: left;
+    list-style-type: none;
+}
+.inf
+{
+    padding: 10px 20px 0px 20px;
+}
+
+.col li
+{
+    padding: 0px 20px 10px 30px;
+}
+.btn-booking
+{
+    background-color: #35929e;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    padding: 5px 100px;
+    font-size: 14px;
+    border: 1px solid #00cccc;
+    border-radius: 4px;
+    margin-left: 30px;
+}
+.btn-booking:hover
+{
+    background-color: #64cedb;
+    text-decoration: none;
+    color: white;
+}
+.inf span
+{
+    font-weight: bold;
+    color: #00cccc;
+}
+/*footer*/
+.footer
+{
+    background-color: #5e5e5e;
+    color: #c1c1c1;
+    margin-top: 20px;
+    display: block;
+    height: auto;
+    position: relative;
+    float: left;
+}
+.footer h4
+{
+    margin-bottom: 20px;
+}
+/*calendar*/
+.calendar-month
+{
+    float: left;
+    margin: 30px 20px 0px 20px;
+}
+
+.monthPre{
+ color: gray;
+ text-align: center;
+}
+.monthNow{
+ color: #c1c1c1;
+ text-align: center;
+}
+.dayNow{
+ border: 2px solid black;
+ color: #c1c1c1;
+ text-align: center;
+}
+.calendar td{
+ htmlContent: 2px;
+ width: 40px;
+}
+.monthNow th{
+ color: #c1c1c1;
+ text-align: center;
+}
+.dayNames{
+ color: #c1c1c1;
+ text-align: center;
+}
+/*blog footer*/
+.content-footer
+{
+    float: left;
+    width: 20%;
+    margin: 30px 20px 0px 100px;
+}
+
+.content-footer p
+{
+    text-align: justify;
+}
+
+
+.blog-footer
+{
+    float: left;
+    display: block;
+    width: 20%;
+    margin: 30px 20px 0px 20px;
+}
+.blog-footer a
+{
+    text-decoration: none;
+    color: #c1c1c1;
+}
+.blog-footer ul
+{
+    list-style-type: none;
+}
+.blog-footer li
+{
+    list-style-type: none;
+}
+
+.new-thumb
+{
+    margin: 10px 10px 10px 0px;
+    float: left;
+}
+
+.list-blog li{
+    border-bottom: 2px solid #efefef;
+}
+.list-blog li:last-child
+{
+    border-bottom: none;
+}
+.new-thumb img
+{
+    width: 75px;
+    height: 75px;
+    border: 3px solid #ccc;
+    
+}
+.new-content
+{
+    padding-top: 20px;
+    margin-left: 20px;
+}
+/*address*/
+.address
+{
+    float: left;
+    margin: 30px 20px 0px 20px;
+}
+/*responsive*/
+
+@media only screen and (max-width: 1350px)
+{
+    .room-list
+    {
+        margin: 0 20px 0 30px;
+    }
+    
+}
+@media only screen and (max-width: 1250px)
+{
+    .room-list
+    {
+        margin: 0 0 0 10px;
+    }
+    
+}
+@media only screen and (max-width: 1200px)
+{
+    .room-list
+    {
+        margin: 0 0 0 10px;
+    }
+    .room-thumb
+    {
+        width: 30%;
+    }
+    .mask
+    {
+        width: 100%;
+        font-size: 14px;
+    }
+    .price
+    {
+        width: 20%;
+    }
+    .btn-booking
+    {
+        padding: 5px 90px;
+        margin: 0 20px 0 20px;
+    }
+}
+@media only screen and (max-width: 1100px)
+{
+    .content-footer, .blog-footer
+    {
+        width: 10%;
+    }
+    .btn-booking
+    {
+        padding: 5px 90px;
+        margin: 0 20px 0 20px;
+    }
+    .room-list
+    {
+        margin: 0 0 0 10px;
+    }
+    .room-thumb
+    {
+        width: 30%;
+    }
+    .mask
+    {
+        width: 100%;
+        font-size: 14px;
+    }
+    .price
+    {
+        width: 20%;
+    }
+}
+@media only screen and (max-width: 1050px)
+{
+    .content-footer, .blog-footer
+    {
+        width: 10%;
+    }
+    .btn-booking
+    {
+        padding: 5px 80px;
+        margin: 0 20px 0 20px;
+    }
+    .room-list
+    {
+        margin: 0 0 0 10px;
+    }
+    .room-thumb
+    {
+        width: 30%;
+        font-size: 14px;
+    }
+    .mask
+    {
+        width: 100%;
+        font-size: 14px;
+    }
+    .price
+    {
+        width: 25%;
+    }
+}
+@media only screen and (max-width: 1000px)
+{
+    .btn-booking
+    {
+        padding: 5px 70px;
+        margin: 0 20px 0 20px;
+    }
+    .room-list
+    {
+        margin: 0 0 0 10px;
+    }
+    .room-thumb
+    {
+        width: 30%;
+        font-size: 12px;
+    }
+    .mask
+    {
+        width: 100%;
+        font-size: 12px;
+    }
+    .price
+    {
+        width: 30%;
+    }
+}
+@media only screen and (max-width: 950px)
+{
+    .btn-booking
+    {
+        padding: 5px 60px;
+        margin: 0 20px 0 20px;
+    }
+    .room-list
+    {
+        margin: 0 0 0 10px;
+    }
+    .room-thumb
+    {
+        width: 25%;
+        font-size: 10px;
+    }
+    .mask
+    {
+        width: 100%;
+        font-size: 10px;
+    }
+    .price
+    {
+        width: 30%;
+    }
+}
+@media only screen and (max-width: 940px)
+{
+    .btn-booking
+    {
+        padding: 5px 20px;
+        margin: 0 20px 0 20px;
+    }
+    .room-list
+    {
+        margin: 0 0 0 10px;
+    }
+    .room-thumb
+    {
+        width: 25%;
+        font-size: 12px;
+    }
+    .mask
+    {
+        width: 100%;
+        font-size: 12px;
+    }
+    .price
+    {
+        width: 30%;
+    }
+    .room-name h4{
+        font-size: 12px;
+    }
+    .col li{
+        padding: 0px 5px 5px 20px;
+    }
+}
+@media only screen and (max-width: 800px)
+{
+    .blog-footer, .calendar-month, .content-footer,.address
+    {
+        float: none;
+        width: 90%;
+    }
+    .content-footer
+    {
+        margin-left: 30px;
+    }
+    *
+    {
+        font-size: 16px;
+    }
+    div.tab
+    {
+        width: 100%;
+    }
+    .detail
+    {
+        width: 100%;
+        margin-left: 10px;
+    }
+    .content-detail
+    {
+        width: 100%;
+        margin-left: 10px;
+    }
+    .room-booking
+    {
+        width: 90%;
+        margin-left: 10px;
+    }
+    .room-thumb
+    {
+        width: 100%;
+    }
+    .room-list
+    {
+        margin: 0 50px 0 10px;
+    }
+    .mask,.room-name, .inf
+    {
+        width: 100%;
+        
+    }
+    .inf p
+    {
+        font-size: 14px;
+    }
+    .inf li
+    {
+        font-size: 12px;
+        margin:0 50px 0 0;
+    }
+    .btn-booking
+    {
+        font-size: 12px;
+    }
+    .list-unstyled
+    {
+        margin-right: 100px;
+    }
+    .row-nav a
+    {
+        font-size: 12px;
+    }
+    .row-nav
+    {
+        margin: 10px 0 0 30px
+    }
+}
+@media only screen and (max-width:850px)
+{
+    .menu li
+    {
+        float: none;
+    }
+    .sub-menu
+    {
+        display: block;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .collapse.in {
+        display: block !important;
+    }
+    .navbar-nav li
+    {
+        border-bottom: 1px solid #e1e1e1;
+    }
+    .navbar-nav li a
+    {
+        padding: 10px;
+    }
+    .navbar-nav li:last-child
+    {
+        border-bottom: none;
+    }
+    .navbar-nav>li>.dropdown-menu li {
+        padding-top: 0;
+        padding-bottom: 10px;
+        border-top: 1px solid #e1e1e1;
+    }
+    .navbar-nav>li>.dropdown-menu li:last-child {
+        border-top:none;
+    }
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: #cccccc;
+    }
+}
+@media only screen and (max-width:800px)
+{
+    .menu li
+    {
+        float: none;
+    }
+    .sub-menu
+    {
+        display: block;
+    }
+    
+}
+

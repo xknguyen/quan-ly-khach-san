@@ -1,0 +1,125 @@
+﻿@model IEnumerable<KhachSan.Models.Booking>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Quản Lý Booking</h2>
+
+@{
+    if (@TempData["deleteSuccess"] != null)
+    {
+    <div class='alert alert-success alert-dismissable fade in'>
+        <a href='#' class='close' data-dismiss='alert' aria-label='close' style="float:none; opacity:inherit">@TempData["deleteSuccess"] </a>
+    </div> 
+    }
+    if (@TempData["deleteFail"] != null)
+    { 
+    <div class="alert alert-danger alert-dismissable fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" style="float:none; opacity:inherit">@TempData["deleteFail"]</a>
+    </div>
+    }
+}
+<table class="table table-striped">
+    <tr>
+        <th>
+            Tên Đầy đủ
+        </th>
+        <th>
+            Trạng thái
+        </th>
+        <th>
+            Ngày đặt
+        </th>
+        <th>Hành động</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details", "BookingDetail", new { id =@item.ID })">@item.Customer.fullName</a>
+            </td>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.bookingStatus, new { id = "active_" + item.ID, value = item.ID, onchange = "ChangeAcitve(" + item.ID + ");" })
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.bookingDate)
+            </td>
+            <td>
+                <!-- Trigger the modal with a button -->
+                <a href="#" data-toggle="modal" data-target="#deleteBooking_@item.ID">Xóa</a>
+
+                <!-- Modal -->
+                <div id="deleteBooking_@item.ID" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="color:red">Bạn có muốn xóa hay không?</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    <b>Khách Hàng :</b>@Html.DisplayFor(modelItem => item.Customer.fullName)
+                                </p>
+                                <p>
+                                    <b>Trạng Thái :</b>@Html.CheckBoxFor(modelItem => item.bookingStatus, new { id = "active_" + item.ID, value = item.ID, onchange = "ChangeAcitve(" + item.ID + ");" })
+                                </p>
+                                <p>
+                                    <b>Ngày Đặt: </b>@Html.DisplayFor(modelItem => item.bookingDate)
+                                </p>
+                                @using (Html.BeginForm("Index", "Booking"))
+                                {  @Html.AntiForgeryToken()
+                                    <input type="submit" class="btn btn-danger" value="Xóa" onclick="DeleteBooking(@item.ID)" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Trở về</button>
+                                    <input type="hidden" id="delete_@item.ID" value="@item.ID" />
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+    function DeleteBooking(id) {
+        RequestVerificationToken = $("input[name=__RequestVerificationToken]").val();
+        var idq = parseInt($("#delete_" + id).val());
+        $.ajax({
+            type: "POST",
+            url: "/Booking/Delete",
+            data: { id: idq, __RequestVerificationToken: RequestVerificationToken },
+            success: function (data) {
+                if (data == true) {
+                    console.log("Thanh Cong");
+                } else {
+                    console.log("That Bai");
+                }
+            }
+        });
+    }
+    function ChangeAcitve(id) {
+        var active = $("#active_" + id).prop('checked');
+        $.ajax({
+            type: "GET",
+            url: "/Booking/Changestatus",
+            data: { id: parseInt(id), status: active },
+            success: function (data) {
+                if (data == true)
+                { alert("Doi Thanh Cong"); } else { alert("Doi That Bai"); }
+            }, error: function () {
+                alert(data);
+            }
+        });
+    }
+
+</script>
