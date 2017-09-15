@@ -5,48 +5,51 @@
     Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
+<div class="col-md-6 col-md-offset-2">
+   @*Cần thêm  "Create", "Categories", FormMethod.Post, new { @enctype = "multipart/form-data" } để truyền được dữ liệu qua controllers*@
+@using (Html.BeginForm("Create", "Categories", FormMethod.Post, new { @enctype = "multipart/form-data" })) 
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Category</h4>
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+       <h2>Thêm Loại Phòng</h2>
         <hr />
         @Html.ValidationSummary(true)
         <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.name)
+            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.name ,new {@class="form-control"})
                 @Html.ValidationMessageFor(model => model.name)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.description)
+            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.description, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.description)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.image)
-                @Html.ValidationMessageFor(model => model.image)
+            @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @* biến image truyền sang controllers để lưu,readURL(this) để hiển thị hình trước khi lưu  *@
+                <input type="file" name="image" onchange=" readURL(this); " />
+                <img id="blah" src="#" alt="" />
+
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default"/>
+                @Html.ActionLink("Back to List", "Index")
             </div>
         </div>
     </div>
 }
-
+</div>
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    
 </div>

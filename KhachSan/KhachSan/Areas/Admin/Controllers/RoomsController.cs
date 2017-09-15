@@ -18,6 +18,7 @@ namespace KhachSan.Areas.Admin.Controllers
         // GET: Admin/Rooms
         public ActionResult Index(string q, int? numDisplay, string sort, int? page)
         {
+
             var room = from a in db.Rooms
                        select a;
 
@@ -136,9 +137,9 @@ namespace KhachSan.Areas.Admin.Controllers
             return View(room);
         }
         [HttpPost]
-        public ActionResult QuickEdit(int id, string roomName, float roomPrice, int roomQuantily)
+        public ActionResult QuickEdit(int roomID, string roomName, float roomPrice, int roomQuantily)
         {
-            Room room = db.Rooms.Find(id);
+            Room room = db.Rooms.Find(roomID);
             if (room != null)
             {
                 room.roomName = roomName;

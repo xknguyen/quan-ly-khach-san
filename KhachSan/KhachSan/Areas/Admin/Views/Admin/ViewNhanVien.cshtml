@@ -32,7 +32,7 @@
 </head>
 <body class="body-content">
 
-<div id="wrapper">
+    <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -272,7 +272,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="/Admin/Users"><i class="fa fa-dashboard fa-fw"></i> Quản Lý Nhân Viên</a>
+                           
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Quản lý Phòng<span class="fa arrow"></span></a>
@@ -349,13 +349,13 @@
                         <li>
                             <a href="/Admin/Sliders/"><i class="fa fa-files-o fa-fw"></i>Trình chiếu<span class="fa arrow"></span></a>
                             @*<ul class="nav nav-second-level">
-                                <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                            </ul>*@
+                                    <li>
+                                        <a href="blank.html">Blank Page</a>
+                                    </li>
+                                    <li>
+                                        <a href="login.html">Login Page</a>
+                                    </li>
+                                </ul>*@
                             <!-- /.nav-second-level -->
                         </li>
                     </ul>
@@ -364,9 +364,9 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-    <div id="page-wrapper">
-        @RenderBody()
-    </div>
+        <div id="page-wrapper">
+            @*@RenderBody()*@
+        </div>
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
@@ -415,4 +415,3 @@
 <script src="~/Scripts/ajax/Edit.js"></script>
 <script src="~/Scripts/ajax/Delete.js"></script>
 
-@RenderSection("scripts", required: false)
