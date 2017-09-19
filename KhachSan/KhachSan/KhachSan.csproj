@@ -131,6 +131,9 @@
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Content\images\avatar\" />
     <Folder Include="Content\images\thuvien\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -139,9 +142,6 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UrlEncode.cs" />
-    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1054,13 +1054,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\TemplateAdmin\_admin.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\QuickEdit.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\SaveQuickEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Posts\Details.cshtml" />
@@ -1229,11 +1222,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\less\mixins.less" />
     <Content Include="Scripts\less\sb-admin-2.less" />
