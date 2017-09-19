@@ -1,0 +1,38 @@
+﻿@model KhachSan.Models.Blog
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+}
+<h2><b>Chi tiết Blog</b></h2>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Tên Blog</th>
+        <td>@Html.DisplayFor(model => model.Name)</td>
+    </tr>
+    <tr>
+        <th>Parent</th>
+        <td>@Html.DisplayFor(model => model.Blog2.Name)</td>
+    </tr>
+    <tr>
+        <th>Order</th>
+        <td>@Html.DisplayFor(model => model.Order)</td>
+    </tr>
+    <tr>
+        <th>Active</th>
+        <td>@Html.CheckBoxFor(modelItem => modelItem.Active, new { data_toggle = "toggle", disable = true })</td>
+        <th></th>
+    </tr>
+</table>
+<p>
+    <div class="form-group form-inline">
+        <div class="col-xs-2" style="padding:2px">
+            <a type="button" class="btn btn-block btn-warning " href="@Url.Action("Edit", new { id=Model.ID})"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
+        </div>
+        <div class="col-xs-2" style="padding:2px">
+            <a type="button" href="@Url.Action("Delete", new { id=Model.ID})" class="btn btn-block btn-danger" id="btnDelete"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
+        </div>
+        <div class="col-xs-2" style="padding:2px">
+            <a href="@Url.Action("Index")" type="button" class="btn btn-block btn-default col-xs-2" data-dismiss="modal">Quay lại</a>
+        </div>
+    </div>
+</p>

@@ -21,9 +21,32 @@ namespace KhachSan.Areas.Admin.Controllers
     public class UsersController : Controller
     {
         private KhachSanEntities db = new KhachSanEntities();
-
+          int check =0;
         // GET: Admin/Users
         public ActionResult Index(string q, int? numDisplay, string sort, int? page)
+        {
+            Account account = new Account();
+            account = (Account)Session["Account"];
+
+            switch (CheckPermision.Check(account))
+            {   //là admin
+                case 1:
+                    check=ViewBag.CheckAdmin = 1;
+                    return CheckPer(q, numDisplay, sort, page);
+                case 2:
+                    //nhân viên có quyền 
+                    check= ViewBag.CheckAdmin = 2;
+                    return CheckPer(q, numDisplay, sort, page);
+                //Khách hàng
+                case 3:
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            //Chua đăng nhập
+
+            return RedirectToAction("login", "Home", new { area = "" });
+        }
+        public ActionResult CheckPer(string q, int? numDisplay, string sort, int? page)
         {
             var user = from a in db.Accounts
                        select a;
@@ -64,6 +87,7 @@ namespace KhachSan.Areas.Admin.Controllers
             return View(user.ToPagedList(pageNumber, pageSize));
         }
 
+
         // GET: Admin/Users/Details/5
         public ActionResult Details(int? id)
         {
@@ -92,31 +116,36 @@ namespace KhachSan.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,accountName,email,password,displayname,created,modified,phone,address,avatar,lastLogin,IPLast,IPCreated")] Account users, HttpPostedFileBase filebase)
         {
-            if (ModelState.IsValid)
+            if (check==1)
             {
-                if (Request.Files.Count > 0 || !String.IsNullOrEmpty(Request.Files[0].FileName))
+
+                if (ModelState.IsValid)
                 {
-                    string path = "~/Content/images/avatar";
-                    string pathToSave = Server.MapPath(path);
-                    string filename = Path.GetFileName(Request.Files[0].FileName);
-                    Request.Files[0].SaveAs(Path.Combine(pathToSave, filename));
-                    users.avatar = filename;
-                    var username = Request.Form["accountName"];
-                    var password = Request.Form["password"];
-                    string passwordMD5 = Common.encrypt(username + password);
-                    users.password = passwordMD5;
-                    users.created = DateTime.Now;
+                    if (Request.Files.Count > 0 || !String.IsNullOrEmpty(Request.Files[0].FileName))
+                    {
+                        string path = "~/Content/images/avatar";
+                        string pathToSave = Server.MapPath(path);
+                        string filename = Path.GetFileName(Request.Files[0].FileName);
+                        Request.Files[0].SaveAs(Path.Combine(pathToSave, filename));
+                        users.avatar = filename;
+                        var username = Request.Form["accountName"];
+                        var password = Request.Form["password"];
+                        string passwordMD5 = Common.encrypt(username + password);
+                        users.password = passwordMD5;
+                        users.created = DateTime.Now;
+                        db.Accounts.Add(users);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+
+                    }
                     db.Accounts.Add(users);
                     db.SaveChanges();
                     return RedirectToAction("Index");
-                    
                 }
-                db.Accounts.Add(users);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            return View(users);
+                return View(users);
+            }
+            return RedirectToAction("Index","Admin");
         }
 
         // GET: Admin/Users/Edit/5

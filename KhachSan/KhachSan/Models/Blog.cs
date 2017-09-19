@@ -14,12 +14,23 @@ namespace KhachSan.Models
     
     public partial class Blog
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Blog()
+        {
+            this.Blog1 = new HashSet<Blog>();
+            this.Posts = new HashSet<Post>();
+        }
+    
         public int ID { get; set; }
-        public string title { get; set; }
-        public string content { get; set; }
-        public Nullable<bool> active { get; set; }
-        public Nullable<int> accountID { get; set; }
-        public string shortDescription { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> Parent { get; set; }
+        public Nullable<int> Order { get; set; }
+        public bool Active { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Blog> Blog1 { get; set; }
+        public virtual Blog Blog2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

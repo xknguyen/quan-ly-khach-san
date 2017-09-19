@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="KhachSanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="KhachSanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="About">
           <Key>
             <PropertyRef Name="ID" />
@@ -26,7 +26,7 @@
           <Property Name="created" Type="date" />
           <Property Name="modified" Type="date" />
           <Property Name="phone" Type="text" />
-          <Property Name="address" Type="nvarchar" MaxLength="200" />
+          <Property Name="address" Type="nvarchar" MaxLength="500" />
           <Property Name="avatar" Type="ntext" />
           <Property Name="isadmin" Type="bit" Nullable="false" />
           <Property Name="lastLogin" Type="datetime" />
@@ -50,12 +50,18 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="title" Type="nvarchar" MaxLength="500" />
-          <Property Name="content" Type="nvarchar" MaxLength="4000" />
-          <Property Name="active" Type="bit" />
-          <Property Name="accountID" Type="int" />
-          <Property Name="shortDescription" Type="nvarchar" MaxLength="4000" />
-          <Property Name="date" Type="date" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Parent" Type="int" />
+          <Property Name="Order" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BlogPost">
+          <Key>
+            <PropertyRef Name="BlogID" />
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="BlogID" Type="int" Nullable="false" />
+          <Property Name="PostID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Booking">
           <Key>
@@ -63,7 +69,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="custumerID" Type="int" />
-          <Property Name="bookingDate" Type="date" />
+          <Property Name="bookingDate" Type="datetime" />
           <Property Name="bookingStatus" Type="int" />
         </EntityType>
         <EntityType Name="BookingDetail">
@@ -76,8 +82,8 @@
           <Property Name="detailQuantity" Type="int" />
           <Property Name="detailPrice" Type="float" />
           <Property Name="detailTotal" Type="int" />
-          <Property Name="bookingStart" Type="date" />
-          <Property Name="bookingEnd" Type="date" />
+          <Property Name="bookingStart" Type="datetime" />
+          <Property Name="bookingEnd" Type="datetime" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -95,7 +101,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fullName" Type="nvarchar" MaxLength="500" />
           <Property Name="address" Type="nvarchar" MaxLength="500" />
-          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="500" />
           <Property Name="email" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="GroupPath">
@@ -119,10 +125,25 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="pathName" Type="nvarchar" MaxLength="500" />
-          <Property Name="pathDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="pathName" Type="text" />
+          <Property Name="pathDescription" Type="text" />
           <Property Name="pathUrl" Type="text" />
           <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ContentPost" Type="ntext" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Author" Type="int" />
+          <Property Name="Picture" Type="ntext" />
+          <Property Name="UseDescription" Type="bit" />
+          <Property Name="Seen" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -140,11 +161,59 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="image_Name" Type="nvarchar" MaxLength="500" />
-          <Property Name="image_Description" Type="nvarchar" MaxLength="500" />
-          <Property Name="image_Path" Type="nvarchar" MaxLength="100" />
+          <Property Name="image_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="image_Description" Type="nvarchar" MaxLength="1000" />
           <Property Name="active" Type="int" />
+          <Property Name="image_Path" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK_Account_AccountGroup">
+          <End Role="AccountGroup" Type="Self.AccountGroup" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="accountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blog_Blog">
+          <End Role="Blog" Type="Self.Blog" Multiplicity="0..1" />
+          <End Role="Blog1" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Blog1">
+              <PropertyRef Name="Parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlogPost_Blog">
+          <End Role="Blog" Type="Self.Blog" Multiplicity="1" />
+          <End Role="BlogPost" Type="Self.BlogPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BlogPost">
+              <PropertyRef Name="BlogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlogPost_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="BlogPost" Type="Self.BlogPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BlogPost">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Booking_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
@@ -193,6 +262,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GroupPath_Path">
+          <End Role="Paths" Type="Self.Paths" Multiplicity="0..1" />
+          <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paths">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupPath">
+              <PropertyRef Name="accountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Room_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Room" Type="Self.Room" Multiplicity="*" />
@@ -210,6 +303,7 @@
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountGroup" EntityType="Self.AccountGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlogPost" EntityType="Self.BlogPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookingDetail" EntityType="Self.BookingDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -217,8 +311,25 @@
           <EntitySet Name="GroupPath" EntityType="Self.GroupPath" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MultiTemplate" EntityType="Self.MultiTemplate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Paths" EntityType="Self.Paths" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slider" EntityType="Self.Slider" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_AccountGroup" Association="Self.FK_Account_AccountGroup">
+            <End Role="AccountGroup" EntitySet="AccountGroup" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blog_Blog" Association="Self.FK_Blog_Blog">
+            <End Role="Blog" EntitySet="Blog" />
+            <End Role="Blog1" EntitySet="Blog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlogPost_Blog" Association="Self.FK_BlogPost_Blog">
+            <End Role="Blog" EntitySet="Blog" />
+            <End Role="BlogPost" EntitySet="BlogPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlogPost_Post" Association="Self.FK_BlogPost_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="BlogPost" EntitySet="BlogPost" />
+          </AssociationSet>
           <AssociationSet Name="FK_Booking_Customer" Association="Self.FK_Booking_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Booking" EntitySet="Booking" />
@@ -235,12 +346,21 @@
             <End Role="AccountGroup" EntitySet="AccountGroup" />
             <End Role="GroupPath" EntitySet="GroupPath" />
           </AssociationSet>
+          <AssociationSet Name="FK_GroupPath_Path" Association="Self.FK_GroupPath_Path">
+            <End Role="Paths" EntitySet="Paths" />
+            <End Role="GroupPath" EntitySet="GroupPath" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_Account" Association="Self.FK_Post_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
           <AssociationSet Name="FK_Room_Category" Association="Self.FK_Room_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Room" EntitySet="Room" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KhachSanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -265,7 +385,7 @@
           <Property Name="created" Type="DateTime" Precision="0" />
           <Property Name="modified" Type="DateTime" Precision="0" />
           <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="isadmin" Type="Boolean" Nullable="false" />
           <Property Name="lastLogin" Type="DateTime" Precision="3" />
@@ -273,6 +393,8 @@
           <Property Name="IPLast" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IPCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="AccountGroup" Relationship="Self.FK_Account_AccountGroup" FromRole="Account" ToRole="AccountGroup" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_Post_Account" FromRole="Account" ToRole="Post" />
         </EntityType>
         <EntityType Name="AccountGroup">
           <Key>
@@ -283,6 +405,7 @@
           <Property Name="accountID" Type="Int32" />
           <Property Name="active" Type="Int32" />
           <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_AccountGroup" FromRole="AccountGroup" ToRole="Account" />
           <NavigationProperty Name="GroupPaths" Relationship="Self.FK_GroupPath_AccountGroup" FromRole="AccountGroup" ToRole="GroupPath" />
         </EntityType>
         <EntityType Name="Blog">
@@ -290,12 +413,13 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="active" Type="Boolean" />
-          <Property Name="accountID" Type="Int32" />
-          <Property Name="shortDescription" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Parent" Type="Int32" />
+          <Property Name="Order" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Blog1" Relationship="Self.FK_Blog_Blog" FromRole="Blog" ToRole="Blog1" />
+          <NavigationProperty Name="Blog2" Relationship="Self.FK_Blog_Blog" FromRole="Blog1" ToRole="Blog" />
+          <NavigationProperty Name="Posts" Relationship="Self.BlogPost" FromRole="Blog" ToRole="Post" />
         </EntityType>
         <EntityType Name="Booking">
           <Key>
@@ -303,7 +427,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="custumerID" Type="Int32" />
-          <Property Name="bookingDate" Type="DateTime" Precision="0" />
+          <Property Name="bookingDate" Type="DateTime" Precision="3" />
           <Property Name="bookingStatus" Type="Int32" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Booking_Customer" FromRole="Booking" ToRole="Customer" />
           <NavigationProperty Name="BookingDetails" Relationship="Self.FK_BookingDetail_Booking" FromRole="Booking" ToRole="BookingDetail" />
@@ -318,8 +442,8 @@
           <Property Name="detailQuantity" Type="Int32" />
           <Property Name="detailPrice" Type="Double" />
           <Property Name="detailTotal" Type="Int32" />
-          <Property Name="bookingStart" Type="DateTime" Precision="0" />
-          <Property Name="bookingEnd" Type="DateTime" Precision="0" />
+          <Property Name="bookingStart" Type="DateTime" Precision="3" />
+          <Property Name="bookingEnd" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Booking" Relationship="Self.FK_BookingDetail_Booking" FromRole="BookingDetail" ToRole="Booking" />
           <NavigationProperty Name="Room" Relationship="Self.FK_BookingDetail_Room" FromRole="BookingDetail" ToRole="Room" />
         </EntityType>
@@ -340,7 +464,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_Customer" FromRole="Customer" ToRole="Booking" />
         </EntityType>
@@ -352,6 +476,7 @@
           <Property Name="accountGroupID" Type="Int32" />
           <Property Name="pathID" Type="Int32" />
           <NavigationProperty Name="AccountGroup" Relationship="Self.FK_GroupPath_AccountGroup" FromRole="GroupPath" ToRole="AccountGroup" />
+          <NavigationProperty Name="Path" Relationship="Self.FK_GroupPath_Path" FromRole="GroupPath" ToRole="Paths" />
         </EntityType>
         <EntityType Name="MultiTemplate">
           <Key>
@@ -366,10 +491,28 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="pathName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="pathDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="pathName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="pathDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="pathUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="GroupPaths" Relationship="Self.FK_GroupPath_Path" FromRole="Paths" ToRole="GroupPath" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ContentPost" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Author" Type="Int32" />
+          <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UseDescription" Type="Boolean" />
+          <Property Name="Seen" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Post_Account" FromRole="Post" ToRole="Account" />
+          <NavigationProperty Name="Blogs" Relationship="Self.BlogPost" FromRole="Post" ToRole="Blog" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -389,11 +532,35 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="image_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="image_Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="image_Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="image_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="image_Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="active" Type="Int32" />
+          <Property Name="image_Path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_Account_AccountGroup">
+          <End Role="AccountGroup" Type="Self.AccountGroup" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="accountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="Author" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GroupPath_AccountGroup">
           <End Role="AccountGroup" Type="Self.AccountGroup" Multiplicity="0..1" />
           <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
@@ -403,6 +570,18 @@
             </Principal>
             <Dependent Role="GroupPath">
               <PropertyRef Name="accountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blog_Blog">
+          <End Role="Blog" Type="Self.Blog" Multiplicity="0..1" />
+          <End Role="Blog1" Type="Self.Blog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Blog1">
+              <PropertyRef Name="Parent" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -454,6 +633,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GroupPath_Path">
+          <End Role="Paths" Type="Self.Path" Multiplicity="0..1" />
+          <End Role="GroupPath" Type="Self.GroupPath" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paths">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupPath">
+              <PropertyRef Name="accountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BlogPost">
+          <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="KhachSanEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Abouts" EntityType="Self.About" />
           <EntitySet Name="Accounts" EntityType="Self.Account" />
@@ -466,11 +661,24 @@
           <EntitySet Name="GroupPaths" EntityType="Self.GroupPath" />
           <EntitySet Name="MultiTemplates" EntityType="Self.MultiTemplate" />
           <EntitySet Name="Paths" EntityType="Self.Path" />
+          <EntitySet Name="Posts" EntityType="Self.Post" />
           <EntitySet Name="Rooms" EntityType="Self.Room" />
           <EntitySet Name="Sliders" EntityType="Self.Slider" />
+          <AssociationSet Name="FK_Account_AccountGroup" Association="Self.FK_Account_AccountGroup">
+            <End Role="AccountGroup" EntitySet="AccountGroups" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_Account" Association="Self.FK_Post_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
           <AssociationSet Name="FK_GroupPath_AccountGroup" Association="Self.FK_GroupPath_AccountGroup">
             <End Role="AccountGroup" EntitySet="AccountGroups" />
             <End Role="GroupPath" EntitySet="GroupPaths" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blog_Blog" Association="Self.FK_Blog_Blog">
+            <End Role="Blog" EntitySet="Blogs" />
+            <End Role="Blog1" EntitySet="Blogs" />
           </AssociationSet>
           <AssociationSet Name="FK_Booking_Customer" Association="Self.FK_Booking_Customer">
             <End Role="Customer" EntitySet="Customers" />
@@ -487,6 +695,14 @@
           <AssociationSet Name="FK_Room_Category" Association="Self.FK_Room_Category">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupPath_Path" Association="Self.FK_GroupPath_Path">
+            <End Role="Paths" EntitySet="Paths" />
+            <End Role="GroupPath" EntitySet="GroupPaths" />
+          </AssociationSet>
+          <AssociationSet Name="BlogPost" Association="Self.BlogPost">
+            <End Role="Blog" EntitySet="Blogs" />
+            <End Role="Post" EntitySet="Posts" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -508,7 +724,6 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="KhachSanModel.Account">
               <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="accountName" ColumnName="accountName" />
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -524,6 +739,7 @@
                 <ScalarProperty Name="accountGroupID" ColumnName="accountGroupID" />
                 <ScalarProperty Name="IPLast" ColumnName="IPLast" />
                 <ScalarProperty Name="IPCreated" ColumnName="IPCreated" />
+                <ScalarProperty Name="active" ColumnName="active" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -542,12 +758,10 @@
             <EntityTypeMapping TypeName="KhachSanModel.Blog">
               <MappingFragment StoreEntitySet="Blog">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="content" ColumnName="content" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="accountID" ColumnName="accountID" />
-                <ScalarProperty Name="shortDescription" ColumnName="shortDescription" />
-                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -625,6 +839,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="KhachSanModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ContentPost" ColumnName="ContentPost" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="UseDescription" ColumnName="UseDescription" />
+                <ScalarProperty Name="Seen" ColumnName="Seen" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Rooms">
             <EntityTypeMapping TypeName="KhachSanModel.Room">
               <MappingFragment StoreEntitySet="Room">
@@ -640,14 +870,22 @@
           <EntitySetMapping Name="Sliders">
             <EntityTypeMapping TypeName="KhachSanModel.Slider">
               <MappingFragment StoreEntitySet="Slider">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="image_Path" ColumnName="image_Path" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="image_Name" ColumnName="image_Name" />
                 <ScalarProperty Name="image_Description" ColumnName="image_Description" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="image_Path" ColumnName="image_Path" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="BlogPost" TypeName="KhachSanModel.BlogPost" StoreEntitySet="BlogPost">
+            <EndProperty Name="Blog">
+              <ScalarProperty Name="ID" ColumnName="BlogID" />
+            </EndProperty>
+            <EndProperty Name="Post">
+              <ScalarProperty Name="ID" ColumnName="PostID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
