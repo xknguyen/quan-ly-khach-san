@@ -1,0 +1,77 @@
+﻿@model KhachSan.Models.Blog
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+}
+@using (Html.BeginForm("Edit", "Blogs", FormMethod.Post, new { id = "SaveEdit", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @*<div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.BlogID)*@
+
+    <table class="table table-bordered table-striped ">
+        <tr>
+            <td><h2><b>Chỉnh Sửa Blog</b></h2></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+                @*</div>*@
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Parent, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Parent", null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Parent)
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Order, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Order, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Order)
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Active, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.Active, new { data_toggle = "toggle", @class = "toggle-active" })
+                        @Html.ValidationMessageFor(model => model.Active)
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+}
+<div class="form-group">
+    <button type="submit" form="SaveEdit" class="btn btn-warning" id="btnSaveEdit"><i class="fa fa-floppy-o" aria-hidden="true"></i>Lưu thay đổi</button>
+    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-default" })
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+

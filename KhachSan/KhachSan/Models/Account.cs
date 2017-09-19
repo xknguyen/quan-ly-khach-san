@@ -14,6 +14,12 @@ namespace KhachSan.Models
     
     public partial class Account
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Account()
+        {
+            this.Posts = new HashSet<Post>();
+        }
+    
         public int ID { get; set; }
         public string accountName { get; set; }
         public string email { get; set; }
@@ -30,5 +36,9 @@ namespace KhachSan.Models
         public string IPLast { get; set; }
         public string IPCreated { get; set; }
         public Nullable<bool> active { get; set; }
+    
+        public virtual AccountGroup AccountGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

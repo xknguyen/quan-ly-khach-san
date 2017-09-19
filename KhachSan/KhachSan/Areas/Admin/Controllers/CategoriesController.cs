@@ -26,20 +26,24 @@ namespace KhachSan.Areas.Admin.Controllers
             switch (CheckPermision.Check(account))
             {   //là admin
                 case 1:
-                  return  Quyen(q, numDisplay, sort, page);
+                    ViewBag.CheckAdmin = 1;
+                  return CheckPer(q, numDisplay, sort, page);
                 case 2:
-                    //nhân viên có quyền trong danh mục loại phòng
-                    return  Quyen(q, numDisplay, sort, page);
+                    //nhân viên có quyền 
+                    ViewBag.CheckAdmin = 2;
+                    return CheckPer(q, numDisplay, sort, page);
                 //Khách hàng
                 case 3:
+                    
                     return RedirectToAction("Index", "Home", new { area = "" });
             }
             //Chua đăng nhập
 
                     return RedirectToAction("login", "Home", new { area = "" });
         }
+       
 
-        public ActionResult Quyen(string q, int? numDisplay, string sort, int? page)
+        public ActionResult CheckPer(string q, int? numDisplay, string sort, int? page)
 
         {
             var category = from a in db.Categories
@@ -73,7 +77,7 @@ namespace KhachSan.Areas.Admin.Controllers
             int pageNumber = (page ?? 1);
             return View(category.ToPagedList(pageNumber, pageSize));
         }
-
+     
 
 
         // GET: Admin/Categories/Details/5
@@ -104,7 +108,8 @@ namespace KhachSan.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(string name,string description, HttpPostedFileBase image)
         {
-            //lay ten file
+           
+                 //lay ten file
             var fileName = Path.GetFileName(image.FileName);
             //lưu hình vào folder 
             var path = Path.Combine(Server.MapPath("~/Content/images/RoomCategory"), fileName);
@@ -119,8 +124,9 @@ namespace KhachSan.Areas.Admin.Controllers
                 image.SaveAs(path);
                 return RedirectToAction("Index");
             }
+                return RedirectToAction("Index");
 
-            return RedirectToAction("Index");
+           
         }
 
         // GET: Admin/Categories/Edit/5
@@ -146,23 +152,7 @@ namespace KhachSan.Areas.Admin.Controllers
         public ActionResult Edit(int id,string name, string description, HttpPostedFileBase image)
         {
             Category category = db.Categories.Find(id);
-            //lay ten file
-            //var fileName = Path.GetFileName(image.FileName);
-            ////lưu hình vào folder 
-            //var path = Path.Combine(Server.MapPath("~/Content/images/RoomCategory"), fileName);
-
-            ////Lưu đường dẫn vào db
-            //var fileNew = "/Content/images/RoomCategory/" + fileName;
-            //if (ModelState.IsValid)
-            //{
-            //    var category = new Category {ID = id, name = name, description = description, image = fileNew };
-            //    db.Categories.Add(category);
-            //    db.SaveChanges();
-            //    image.SaveAs(path);
-            //    return RedirectToAction("Index");
-            //}
-
-            //return RedirectToAction("Index");
+           
             if (category != null)
             {
                 category.name = name;

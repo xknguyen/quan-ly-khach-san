@@ -20,10 +20,12 @@ namespace KhachSan.Areas.Admin.Controllers
             switch (CheckPermision.Check(account))
             {   //là admin
                 case 1:
+                    ViewBag.CheckAdmin = 1;
                     return View();
                 //là nhân viên
                 case 2:
-                    return RedirectToAction("ViewNhanVien", "Admin");
+                    ViewBag.CheckAdmin = 2;
+                    return View();
                 //Khách hàng
                 case 3:
                     return RedirectToAction("Index", "Home", new { area = "" });
@@ -32,10 +34,6 @@ namespace KhachSan.Areas.Admin.Controllers
             return RedirectToAction("login", "Home", new { area = "" });
         }
 
-        public ActionResult ViewNhanVien(string permision)
-        {
-            return View();
-
-        }
+       
     }
 }

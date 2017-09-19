@@ -17,6 +17,7 @@ namespace KhachSan.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AccountGroup()
         {
+            this.Accounts = new HashSet<Account>();
             this.GroupPaths = new HashSet<GroupPath>();
         }
     
@@ -26,6 +27,8 @@ namespace KhachSan.Models
         public Nullable<int> active { get; set; }
         public string description { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Account> Accounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupPath> GroupPaths { get; set; }
     }

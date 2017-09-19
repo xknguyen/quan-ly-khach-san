@@ -14,10 +14,19 @@ namespace KhachSan.Models
     
     public partial class Path
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Path()
+        {
+            this.GroupPaths = new HashSet<GroupPath>();
+        }
+    
         public int ID { get; set; }
         public string pathName { get; set; }
         public string pathDescription { get; set; }
         public string pathUrl { get; set; }
         public Nullable<bool> active { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GroupPath> GroupPaths { get; set; }
     }
 }

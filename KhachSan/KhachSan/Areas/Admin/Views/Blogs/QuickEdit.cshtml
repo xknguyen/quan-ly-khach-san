@@ -1,0 +1,38 @@
+﻿@model KhachSan.Models.Blog
+@{
+    Layout = null;
+}
+@using (Html.BeginForm("QuickEdit", "Blogs", FormMethod.Post, new { id = "SaveEdit" }))
+{
+    <div id="alertError"></div>
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Parent, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Parent", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Parent)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Order, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Order)
+            </div>
+        </div>
+
+
+    </div>
+}
+

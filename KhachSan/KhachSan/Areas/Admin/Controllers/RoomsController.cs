@@ -19,6 +19,30 @@ namespace KhachSan.Areas.Admin.Controllers
         public ActionResult Index(string q, int? numDisplay, string sort, int? page)
         {
 
+            Account account = new Account();
+            account = (Account)Session["Account"];
+
+            switch (CheckPermision.Check(account))
+            {   //là admin
+                case 1:
+                    ViewBag.CheckAdmin = 1;
+                    return CheckPer(q, numDisplay, sort, page);
+                case 2:
+                    ViewBag.CheckAdmin = 2;
+                    //nhân viên có quyền trong danh mục loại phòng
+                    return CheckPer(q, numDisplay, sort, page);
+                //Khách hàng
+                case 3:
+                    return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            //Chua đăng nhập
+
+            return RedirectToAction("login", "Home", new { area = "" });
+        }
+
+        public ActionResult CheckPer(string q, int? numDisplay, string sort, int? page)
+        {
+
             var room = from a in db.Rooms
                        select a;
 
