@@ -1,0 +1,549 @@
+﻿@model KhachSan.Models.Room
+
+@{
+    ViewBag.Title = "Chi Tiết";
+    Layout = "";
+
+}
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+    <title>Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/TrangChu/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/TrangChu/datepicker/css/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/TrangChu/Roomdetail.css" rel="stylesheet" />
+    <script src="~/Content/TrangChu/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/TrangChu/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/TrangChu/datepicker/js/bootstrap-datepicker.js"></script>
+    <style>
+        .head {
+            margin-bottom: 0;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body onload="displayCalendar()">
+    @{
+        if (TempData["notice"] != null)
+        {
+            <script type="text/javascript">
+            $(document).ready(function () {
+                $("#dialog").dialog(
+                    {
+                        width: 500,
+                        height: 200,
+                        modal: true,
+                        my: "center",
+                        at: "center",
+                        of: window
+                    });
+            });
+            </script>
+            <!-- Modal popup -->
+            <div id="dialog" title="THÔNG BÁO" style="text-align:center">
+                <p><b>@TempData["notice"]</b></p>
+                @Html.Action("GetLastRecord", "Booking")
+            </div>
+        }
+    }
+    <div class="main">
+        <nav class="head navbar navbar-default" style="z-index:9999">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <div class="logo">
+                        <img src="~/Content/TrangChu/Hinh/logo-1.png" alt="Logo Website" />
+                    </div>
+                </div>
+
+                <!--Menu ngang-->
+                <div class="collapse navbar-collapse menu" id="main-menu">
+                    <ul class="nav navbar-nav">
+                        <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Phòng</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("ListRoom","Room")">Danh sách phòng</a></li>
+                                <li><a href="Room-detail.html">Đặt phòng</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Blog</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Blog-grid.html">Danh sách Blog</a></li>
+                                <li><a href="Blog-Post.html">Blog Post</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="Contact.html">Liên hệ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="clearfix"></div>
+        <!--menu room-->
+        <script type="text/javascript">
+            jQuery(document).ready(function () { jQuery('#parallax-pagetitle').parallax("50%", -0.55); });
+        </script>
+        <div class="parallax-effect">
+            <div id="parallax-pagetitle">
+                <div class="color-overlay">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ol class="breadcrumb">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="List-room.html">Room</a></li>
+                                    <li class="active">Double Bedroom</li>
+                                </ol>
+                                <h1>Double Bedroom</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--slider với booking-->
+        <div class="content-detail">
+            <div class="room-slider">
+                <img src="~/Content/TrangChu/Hinh/room-slider-01.jpg" class="slide" />
+                <img src="~/Content/TrangChu/Hinh/room-slider-02.jpg" class="slide" />
+                <button class="btn" onclick="plusDivs(-1)" id="btn1">&#10094;</button>
+                <button class="btn" onclick="plusDivs(1)" id="btn2">&#10095;</button>
+            </div>
+            <div class="room-booking">
+                <h2 class="line"><span>Đặt Phòng</span></h2>
+                <div class="room-name">
+                    <h4>@Html.DisplayFor(model => model.roomName) - Giá: <span>@Html.DisplayFor(model => model.roomPrice)$</span> /đêm</h4>
+                </div>
+                @using (Html.BeginForm("CreateRoomBooking", "Room", FormMethod.Post))
+                { 
+                    <input type="hidden" name="idRoom" value="@Html.DisplayFor(model=>model.ID)"/>
+                    <input type="hidden" name="priceRoom" value="@Html.DisplayFor(model=>model.roomPrice)"/>
+                 <div class="email">
+                        <label>Tên đầy đủ</label><br>
+                     <input type="text" name="fullname" placeholder="Nhập tên đầy đủ" required>
+                </div>
+                     <div class="email">
+                        <label>Địa Chỉ </label><br>
+                         <input type="text" name="address" placeholder="Nhập địa chỉ" required>
+                </div>
+                <div class="email">
+                        <label>Địa Chỉ Email</label><br>
+                    <input type="text" name="email" placeholder="Nhập địa chỉ E-mail" required>
+                </div>
+                <div class="phone">
+                        <label>Số điện thoại</label><br>
+                    <input type="text" name="phone" placeholder="Số điện thoại" required>
+                </div>
+                <div class="Type">
+                        <label>Loại Phòng</label><br>
+                    <input type="text" name="type" value="@Html.DisplayFor(model=>model.Category.name)" readonly="readonly" required>
+                </div>
+                <div class="check-in">
+                    <label>Ngày bắt đầu</label><br>
+                    <input type="text" name="checkin" placeholder="ngày bắt đầu" class="datepicker" required>
+                </div>
+                <div class="check-out">
+                    <label>Ngày kết thúc</label><br>
+                    <input type="text" name="checkout" placeholder="ngày kết thúc" class="datepicker" required>
+                </div>
+                <div class="guests">
+                    <label>Số Người</label><br>
+                    <input type="text" name="guest" placeholder="Số lượng người" required>
+                </div>
+            <div class="guests">
+                <label>Số phòng</label><br>
+                <input type="text" name="roomQuantity" placeholder="Số lượng phòng" required>
+            </div>
+                <div class="book-now">
+                    <input type="submit" value="Đặt ngay">
+                </div>
+                }
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="detail">
+            <div class="room-detail">
+                <h2 class="line"><span>Chi tiết phòng</span></h2>
+                @Html.DisplayFor(model=>model.roomDescription)
+            </div>
+            <div class="menu-tab">
+                <h2 class="line"><span>Overview</span></h2>
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'Overview')" id="defaultOpen">Overview</button>
+                    <button class="tablinks" onclick="openTab(event, 'Facilities')">Facilities</button>
+                    <button class="tablinks" onclick="openTab(event, 'Extra')">Extra</button>
+                </div>
+
+                <div id="Overview" class="tabcontent">
+
+                    <p>
+                        @Html.DisplayFor(model => model.roomDescription)
+                        <img src="~/Content/TrangChu/Hinh/restaurant-01.jpg" />
+                    </p>
+                </div>
+
+                <div id="Facilities" class="tabcontent">
+
+                    <p>@Html.DisplayFor(model => model.roomDescription)</p>
+                </div>
+
+                <div id="Extra" class="tabcontent">
+                    <p>@Html.DisplayFor(model => model.roomDescription)</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="content">
+            <h2 class="line"><span>Ohter Rooms</span></h2>
+            <div class="room">
+                <div class="room-list">
+                    <div class="col-room">
+                        <div class="room-thumb">
+                            <img src="Hinh/room-01.jpg" alt="room">
+                            <div class="mask">
+                                <div class="room-name">
+                                    <h4>Honeymoon Suite</h4>
+                                    <div class="price">
+                                        $ 79<br>
+                                        <span>a night</span>
+                                    </div>
+                                </div>
+                                <div class="inf">
+                                    <p>
+                                        <span>A modern hotel room in Star Hotel</span><br>
+                                        Nunc tempor erat in magna pulvinar fermentum. Pellentesque scelerisque at leo nec vestibulum. malesuada metus."
+                                    </p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <i class="fa fa-check-circle"></i>
+                                                    Incl. breakfast
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-check-circle"></i>
+                                                    Private banlcony
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-check-circle"></i>
+                                                    Sea view
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col">
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <i class="fa fa-check-circle"></i>
+                                                    Free Wifi
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-check-circle"></i>
+                                                    Incl. breakfast
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-check-circle"></i>
+                                                    Bathroom
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <a href="#" class="btn-booking">BOOK NOW</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="footer">
+            <div class="col-footer">
+                <div class="content-footer">
+                    <h4>ABOUT STARHOTEL</h4>
+                    <p>Suspendisse sed sollicitudin nisl, at dignissim libero. Sed porta tincidunt ipsum, vel volutpat.</p>
+                    <p>Nunc ut fringilla urna. Cras vel adipiscing ipsum. Integer dignissim nisl eu lacus interdum facilisis. Aliquam erat volutpat. Nulla semper vitae felis vitae dapibus.</p>
+                </div>
+                <div class="calendar-month">
+                    <h4>CALENDAR</h4>
+                    <div id="calendar"></div>
+                </div>
+                <div class="blog-footer">
+                    <h4>FROM OUR BLOG</h4>
+                    <ul class="list-blog">
+                        <li>
+                            <div class="news">
+                                <div class="new-thumb">
+                                    <a href="#">
+                                        <img src="Hinh/footer.jpg">
+                                    </a>
+                                </div>
+                                <div class="new-content clearfix">
+                                    <h4><a href="#">New lounge area</a></h4>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="news">
+                                <div class="new-thumb">
+                                    <a href="#">
+                                        <img src="Hinh/footer.jpg">
+                                    </a>
+                                </div>
+                                <div class="new-content clearfix">
+                                    <h4><a href="#">New lounge area</a></h4>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="news">
+                                <div class="new-thumb">
+                                    <a href="#">
+                                        <img src="Hinh/footer.jpg">
+                                    </a>
+                                </div>
+                                <div class="new-content clearfix">
+                                    <h4><a href="#">New lounge area</a></h4>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="address">
+                    <h4>ADDRESS</h4>
+                    <div class="text-footer">
+                        <p>
+                            Starhotel<br>
+                            795 Las Palmas<br>
+                            Spain, CA 94107<br>
+                            P: (123) 456-7890<br>
+                            E: mail@example.com<br>
+                            W: www.slashdown.nl
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <
+    <script>
+        //định dạng date
+        $(function () {
+            $('.datepicker').datepicker()
+        });
+        //slider
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("slide");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+        carousel();
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("slide")
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > x.length) { slideIndex = 1 }
+            x[slideIndex - 1].style.display = "block";
+            setTimeout(carousel, 4000);
+        }
+
+        //calendar
+        function displayCalendar() {
+            var htmlContent = "";
+            var FebNumberOfDays = "";
+            var counter = 1;
+
+
+            var dateNow = new Date();
+            var month = dateNow.getMonth();
+
+            var nextMonth = month + 1; //+1; //Used to match up the current month with the correct start date.
+            var prevMonth = month - 1;
+            var day = dateNow.getDate();
+            var year = dateNow.getFullYear();
+
+
+            //Determing if February (28,or 29)
+            if (month == 1) {
+                if ((year % 100 != 0) && (year % 4 == 0) || (year % 400 == 0)) {
+                    FebNumberOfDays = 29;
+                } else {
+                    FebNumberOfDays = 28;
+                }
+            }
+
+
+            // names of months and week days.
+            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"];
+            var dayPerMonth = ["31", "" + FebNumberOfDays + "", "31", "30", "31", "30", "31", "31", "30", "31", "30", "31"]
+
+
+            // days in previous month and next one , and day of week.
+            var nextDate = new Date(nextMonth + ' 1 ,' + year);
+            var weekdays = nextDate.getDay();
+            var weekdays2 = weekdays
+            var numOfDays = dayPerMonth[month];
+
+
+
+
+            // this leave a white space for days of pervious month.
+            while (weekdays > 0) {
+                htmlContent += "<td class='monthPre'></td>";
+
+                // used in next loop.
+                weekdays--;
+            }
+
+            // loop to build the calander body.
+            while (counter <= numOfDays) {
+
+                // When to start new line.
+                if (weekdays2 > 6) {
+                    weekdays2 = 0;
+                    htmlContent += "</tr><tr>";
+                }
+
+
+
+                // if counter is current day.
+                // highlight current day using the CSS defined in header.
+                if (counter == day) {
+                    htmlContent += "<td class='dayNow'  onMouseOver='this.style.background=\"#FF0000\"; this.style.color=\"#FFFFFF\"' " +
+                    "onMouseOut='this.style.background=\"#FFFFFF\"; this.style.color=\"#00FF00\"'>" + counter + "</td>";
+                } else {
+                    htmlContent += "<td class='monthNow' onMouseOver='this.style.background=\"#FF0000\"'" +
+                    " onMouseOut='this.style.background=\"#FFFFFF\"'>" + counter + "</td>";
+
+                }
+
+                weekdays2++;
+                counter++;
+            }
+
+
+
+            // building the calendar html body.
+            var calendarBody = "<table class='calendar'> <tr class='monthNow'><th colspan='7'>"
+            + monthNames[month] + " " + year + "</th></tr>";
+            calendarBody += "<tr class='dayNames'>  <td>Sun</td>  <td>Mon</td> <td>Tues</td>" +
+            "<td>Wed</td> <td>Thurs</td> <td>Fri</td> <td>Sat</td> </tr>";
+            calendarBody += "<tr>";
+            calendarBody += htmlContent;
+            calendarBody += "</tr></table>";
+            // set the content of div .
+            document.getElementById("calendar").innerHTML = calendarBody;
+
+        }
+        //menu tab
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        document.getElementById("defaultOpen").click();
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+@*<div>
+    <h4>Room</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.roomName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roomName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.roomDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roomDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.roomPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roomPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.roomQuantily)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.roomQuantily)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Trang Chủ";
+}
+@{
+    ViewBag.Title = "Trang Chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/TrangChu/js/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Content/TrangChu/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+@{
+    if (TempData["notice"] != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#dialog").dialog({
+                    width: 500,
+                    height: 200,
+                    modal: true,
+                    my: "center",
+                    at: "center",
+                    of: window
+                });
+            });
+        </script>
+            <!-- Modal popup -->
+        <div id="dialog" title="THÔNG BÁO" style="text-align:center">
+              <p style="color:forestgreen"><b>@TempData["notice"]</b></p>
+              @Html.Action("GetLastRecord","Booking")
+        </div>
+    }
+}
+<!--Slide chạy hình-->
+<div class="slider">
+    <img class="slide" src="~/Content/TrangChu/Hinh/slide1.jpg">
+    <img class="slide" src="~/Content/TrangChu/Hinh/slide2.jpg">
+    <button class="btn" onclick="plusDivs(-1)" id="btn1">&#10094;</button>
+    <button class="btn" onclick="plusDivs(1)" id="btn2">&#10095;</button>
+</div>
+<!--Đặt phòng-->
+<div class="booking">
+
+    @using (Html.BeginForm("CreateBooking", "Home", FormMethod.Post, new { }))
+    {
+        <div class="email">
+            <label>Họ Tên</label><br>
+            <input type="text" name="cusFullname" id="cusFullname" placeholder="Nhập tên" required>
+        </div>
+        <div class="phone">
+                <label>Số Điện Thoại</label><br>
+            <input type="text" name="cusPhone" id="cusPhone" placeholder="Nhập Số Điện Thoại" required>
+        </div>
+            <div class="Type">
+                    <label>Loại phòng</label><br>
+                <select name="typeRoom">
+                    <option>Select a room</option>
+                    <option>Double Bedroom</option>
+                    <option>King Size Bedroom</option>
+                    <option>Single Room</option>
+                </select>
+            </div>
+        <div class="check-in">
+            <label>Ngày Bắt Đầu</label><br>
+            <input type="text" name="bookingStart" id="bookingStart" placeholder="Check-in" class="datepicker" required>
+        </div>
+        <div class="check-out">
+            <label>Ngày Kết Thúc</label><br>
+            <input type="text" name="bookingEnd" id="bookingEnd" placeholder="check-out" class="datepicker" required>
+        </div>
+        <div class="guests">
+            <label>Số Lượng Người</label><br>
+            <input type="number" name="detailQuantity" id="detailQuantity" placeholder="Số Lượng Người" required>
+        </div>
+    <div class="guests">
+        <label>Số Lượng Phòng</label><br>
+        <input type="number" name="roomQuantity" id="roomQuantity" placeholder="Số Lượng Phòng" required>
+    </div>
+        <div class="book-now">
+            <input type="submit" value="Đặt Ngay" id="btnBooking">
+        </div>
+    }
+    </div>
+    <div class="clearfix"></div>
+<!--Giới thiệu phòng-->
+<div class="content">
+    <h2 class="line"><span>Giới Thiệu Phòng</span></h2>
+    <div class="room">
+        <div class="room-list">
+            <div class="col-room">
+                @foreach(var item in Model)
+                {
+                    <div class="room-thumb">
+                    <img src="~/Content/TrangChu/Hinh/@item.roomImage" alt="room">
+                    <div class="mask">
+                        <div class="room-name">
+                            <h4>@item.roomName</h4>
+                            <div class="price">
+                                $ @item.roomPrice<br>
+                                <span>/đêm</span>
+                            </div>
+                        </div>
+                        <div class="inf">
+                            <p>
+                                @item.roomDescription
+                            </p>
+                            <div class="row">
+                                <div class="clearfix"></div><br>
+                                <a href="@Url.Action("Details", "Room", new { id=@item.ID})" class="btn-booking">BOOK NOW</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
