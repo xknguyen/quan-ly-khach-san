@@ -1,0 +1,115 @@
+﻿@model KhachSan.Models.Account
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+}
+@{
+    WebImage photo = null;
+    var newFileName = "";
+    var imagePath = "";
+    if (IsPost)
+    {
+        photo = WebImage.GetImageFromRequest();
+        if (photo != null)
+        {
+            newFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(photo.FileName);
+            imagePath = @"images\" + newFileName;
+            photo.Save(@"~\" + imagePath);
+        }
+    }
+}
+
+<div class="col-md-6 col-md-offset-2">
+    
+    <h2>Thêm người dùng</h2>
+    @using (Html.BeginForm("Create", "Users", FormMethod.Post, new {enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr/>
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.accountName, new {@class = "control-label col-md-3"})
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.accountName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.accountName)
+
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.email, new {@class = "control-label col-md-3"})
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.email)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.password, new {@class = "control-label col-md-3"})
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.password, new {@class ="form-control",type="password"})
+                    @Html.ValidationMessageFor(model => model.password)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.displayname, new {@class = "control-label col-md-3"})
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.displayname, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.displayname)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.avatar, new {@class = "control-label col-md-3"})
+               <div class="col-md-9">
+                   <fieldset>
+                       <div class="editors-field">
+                           @Html.TextBox("file", "", new {type = "file", id = "uploadFile",onchange=" readURL(this);"})<br/>
+                           @*<img width="100" height="100" id="imgshow"/>*@
+                         
+                           <img id="blah" src="#" alt="" />
+                       </div>
+                   </fieldset>
+                   </div>
+                         
+
+                </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <input type="submit" value="Thêm" class="btn btn-primary"/>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<div>
+    <script>
+        //lay duong dan hinh
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgshow').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#uploadFile").change(function () {
+            readURL(this);
+        });
+    </script>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

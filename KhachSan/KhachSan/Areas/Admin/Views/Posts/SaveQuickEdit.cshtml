@@ -1,0 +1,13 @@
+﻿@model KhachSan.Models.Post
+@{
+    ViewBag.Title = "SaveQuickEdit";
+    Layout = null;
+}
+@if (Model != null)
+{
+    <p>Lưu thành công!</p>
+}
+else
+{
+    Response.Write("Có lỗi!!!");
+}

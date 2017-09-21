@@ -1,0 +1,68 @@
+﻿@model KhachSan.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;//"~/Areas/Admin/Views/TemplateAdmin/_admin.cshtml";
+}
+
+@*modal delete*@
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Xác nhận</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Bạn có chắc muốn xóa loại phòng <b>@Model.name</b>
+                </h3>
+                <div>
+                    <hr/>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>@Html.LabelFor(model => model.name)</th>
+                            <td>@Html.DisplayFor(model => model.name)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(model => model.description)</th>
+                            <td>@Html.DisplayFor(model => model.description)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(model => model.image)</th>
+                            <td><img width="300" height="200" src="@Url.Content(Model.image)" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer">
+                @using (Html.BeginForm("Delete", "Categories", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-actions no-color text-center">
+                        <input type="submit" value="Xóa" class="btn btn-danger"/>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    </div>
+                }
+            </div><!-- /.modal-footer -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+    $('.delete-link').click(function (e) {
+        var a_href = $(this).attr('href'); /* Lấy giá trị của thuộc tính href */
+        e.preventDefault(); /* Không thực hiện action mặc định */
+        $.ajax({ /* Gửi request lên server */
+            url: a_href, /* Nội dung trong Delete.cshtml cụ thể là deleteModal div được server trả về */
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) { /* Sau khi nhận được giá */
+                $('.body-content').prepend(data); /* body-content div (định nghĩa trong _Layout.cshtml) sẽ thêm deleteModal div vào dưới cùng */
+                $('#deleteModal').modal('show'); /* Hiển thị deleteModal div dưới kiểu modal */
+            }
+        });
+    });
+</script>
